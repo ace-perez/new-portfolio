@@ -47,15 +47,16 @@ export default function HeroSection() {
         >
           {/* ASCII art goose */}
           <pre className="text-primary text-glow text-[9px] sm:text-[11px] leading-tight mb-8 overflow-hidden select-none">
-{`        ___
-    .-'   \`.
-   /  •    \\__,=~-=~
-  |        / ~-( pipe )
-   \\      /
-    \`-..-'\\
-    /  \\   \\
-   ( () )  ()
-    \`--'  '--'`}
+{`          __
+        /  •\\
+       |     >==---( ))
+        \\   /
+    .~~~'~~~.
+   /  HONK   \\
+  |           |
+   \\         /
+    \`-v---v-'
+      v     v`}
           </pre>
 
           <TerminalWindow title="~/about — bash">
