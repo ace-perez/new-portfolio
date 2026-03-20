@@ -45,7 +45,7 @@ export default function ContactSection() {
         <div className="h-px bg-gradient-to-r from-primary/40 to-transparent mt-3" />
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-6">
+      <div className="grid gap-6">
         {/* Links */}
         <TerminalWindow title="contact/links.txt">
           <div className="space-y-3">
