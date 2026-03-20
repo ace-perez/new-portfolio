@@ -16,11 +16,15 @@ export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('home');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [terminalOpen, setTerminalOpen] = useState(false);
+  const isNavigating = React.useRef(false);
 
   const handleNavigate = (id) => {
     const el = document.getElementById(id);
     if (el) {
+      isNavigating.current = true;
+      setActiveSection(id);
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(() => { isNavigating.current = false; }, 1000);
     }
   };
 
@@ -28,6 +32,7 @@ export default function Portfolio() {
     const sectionIds = ['home', 'experience', 'skills', 'projects', 'education', 'certifications', 'contact'];
     const observer = new IntersectionObserver(
       (entries) => {
+        if (isNavigating.current) return;
         const visible = entries.filter(e => e.isIntersecting);
         if (visible.length > 0) {
           const top = visible.reduce((a, b) => a.boundingClientRect.top < b.boundingClientRect.top ? a : b);
