@@ -52,7 +52,7 @@ export default function MobileSidebar({ activeSection, onNavigate }) {
               <div className="p-5 border-b border-sidebar-border flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Terminal className="w-5 h-5 text-primary" />
-                  <span className="font-mono text-sm font-semibold text-primary text-glow">devops@sre</span>
+                  <span className="font-mono text-sm font-semibold text-primary text-glow">ace@perez</span>
                 </div>
                 <button onClick={() => setOpen(false)}>
                   <X className="w-4 h-4 text-muted-foreground" />
