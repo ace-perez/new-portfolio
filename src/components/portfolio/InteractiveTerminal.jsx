@@ -121,6 +121,8 @@ export default function InteractiveTerminal({ open, onClose }) {
   const [input, setInput] = useState('');
   const [cmdHistory, setCmdHistory] = useState([]);
   const [cmdIndex, setCmdIndex] = useState(-1);
+  const [suggestions, setSuggestions] = useState([]);
+  const [suggestionIndex, setSuggestionIndex] = useState(-1);
   const inputRef = useRef(null);
   const bottomRef = useRef(null);
 
