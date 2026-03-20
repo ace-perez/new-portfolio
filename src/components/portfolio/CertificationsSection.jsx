@@ -4,11 +4,11 @@ import TerminalWindow from './TerminalWindow';
 import { Shield } from 'lucide-react';
 
 const certs = [
-  { name: "AWS Solutions Architect – Professional", issuer: "Amazon Web Services", year: "2023" },
-  { name: "Certified Kubernetes Administrator (CKA)", issuer: "CNCF", year: "2022" },
-  { name: "Certified Kubernetes Security Specialist (CKS)", issuer: "CNCF", year: "2023" },
-  { name: "HashiCorp Terraform Associate", issuer: "HashiCorp", year: "2022" },
-  { name: "Google Cloud Professional DevOps Engineer", issuer: "Google Cloud", year: "2023" },
+  { name: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services", year: "" },
+  { name: "AWS Academy Graduate – AWS Academy Cloud Architecting", issuer: "Amazon Web Services", year: "" },
+  { name: "CCNAv7: Switching, Routing, and Wireless Essentials", issuer: "Cisco", year: "" },
+  { name: "CCNAv7: Enterprise Networking, Security, and Automation", issuer: "Cisco", year: "" },
+  { name: "Oracle Certified Associate, Java SE 8 Programmer", issuer: "Oracle", year: "" },
 ];
 
 export default function CertificationsSection() {
