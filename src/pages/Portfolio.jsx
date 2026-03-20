@@ -67,15 +67,25 @@ export default function Portfolio() {
         <CertificationsSection />
         <ContactSection />
 
-        {/* Terminal FAB */}
-        <button
-          onClick={() => setTerminalOpen(true)}
-          className="fixed bottom-6 right-6 z-40 flex items-center gap-2 px-4 py-2.5 rounded-lg bg-primary text-primary-foreground font-mono text-xs font-semibold shadow-lg hover:bg-primary/90 transition-all hover:scale-105 active:scale-95"
-          title="Open interactive terminal"
-        >
-          <span className="text-primary-foreground/70">$</span> terminal
-          <span className="cursor-blink font-bold">▌</span>
-        </button>
+        {/* Terminal FAB with ASCII pointer */}
+        <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-1">
+          <motion.div
+            animate={{ y: [0, -4, 0] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+            className="font-mono text-primary text-[10px] leading-tight text-right text-glow select-none"
+          >
+            <div>try me! ──┐</div>
+            <div className="pr-1">{'         ↓'}</div>
+          </motion.div>
+          <button
+            onClick={() => setTerminalOpen(true)}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-primary text-primary-foreground font-mono text-xs font-semibold shadow-lg hover:bg-primary/90 transition-all hover:scale-105 active:scale-95"
+            title="Open interactive terminal"
+          >
+            <span className="text-primary-foreground/70">$</span> terminal
+            <span className="cursor-blink font-bold">▌</span>
+          </button>
+        </div>
 
         <InteractiveTerminal open={terminalOpen} onClose={() => setTerminalOpen(false)} />
 
