@@ -16,7 +16,7 @@ export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('home');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [terminalOpen, setTerminalOpen] = useState(false);
-  const isNavigating = React.useRef(false);
+  const isNavigating = useRef(false);
 
   const handleNavigate = (id) => {
     const el = document.getElementById(id);
