@@ -73,7 +73,7 @@ export default function Portfolio() {
           <motion.div
             animate={{ y: [0, -4, 0] }}
             transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
-            className="font-mono text-primary text-[10px] leading-tight text-glow select-none flex flex-col items-center"
+            className="font-mono text-primary text-[12px] leading-tight text-glow select-none flex flex-col items-center"
           >
             <div>try me!</div>
             <div>↓</div>
