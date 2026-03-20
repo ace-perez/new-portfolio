@@ -17,6 +17,7 @@ export default function Portfolio() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [terminalOpen, setTerminalOpen] = useState(false);
   const isNavigating = useRef(false);
+  const sectionIds = ['home', 'experience', 'skills', 'projects', 'education', 'certifications', 'contact'];
 
   const handleNavigate = (id) => {
     const el = document.getElementById(id);
@@ -24,30 +25,26 @@ export default function Portfolio() {
       isNavigating.current = true;
       setActiveSection(id);
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setTimeout(() => { isNavigating.current = false; }, 1500);
+      setTimeout(() => { isNavigating.current = false; }, 1200);
     }
   };
 
   useEffect(() => {
-    const sectionIds = ['home', 'experience', 'skills', 'projects', 'education', 'certifications', 'contact'];
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (isNavigating.current) return;
-        const visible = entries.filter(e => e.isIntersecting);
-        if (visible.length > 0) {
-          const top = visible.reduce((a, b) => a.boundingClientRect.top < b.boundingClientRect.top ? a : b);
-          setActiveSection(top.target.id);
+    const handleScroll = () => {
+      if (isNavigating.current) return;
+      const offset = 120; // px from top to consider "active"
+      let current = sectionIds[0];
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= offset) {
+          current = id;
         }
-      },
-      { threshold: 0.1, rootMargin: '-80px 0px -20% 0px' }
-    );
+      }
+      setActiveSection(current);
+    };
 
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
