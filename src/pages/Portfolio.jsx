@@ -32,7 +32,15 @@ export default function Portfolio() {
   useEffect(() => {
     const handleScroll = () => {
       if (isNavigating.current) return;
-      const offset = 120; // px from top to consider "active"
+
+      // If near the bottom of the page, activate contact
+      const nearBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 80;
+      if (nearBottom) {
+        setActiveSection('contact');
+        return;
+      }
+
+      const offset = 120;
       let current = sectionIds[0];
       for (const id of sectionIds) {
         const el = document.getElementById(id);
