@@ -296,13 +296,34 @@ export default function InteractiveTerminal({ open, onClose }) {
                   ref={inputRef}
                   type="text"
                   value={input}
-                  onChange={e => setInput(e.target.value)}
+                  onChange={handleInputChange}
                   onKeyDown={handleKeyDown}
                   className="flex-1 bg-transparent border-none outline-none text-foreground caret-primary"
                   spellCheck={false}
                   autoComplete="off"
                 />
               </form>
+
+              {/* Autocomplete suggestions */}
+              {suggestions.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mt-2 pl-1">
+                  {suggestions.map((s, i) => (
+                    <button
+                      key={s}
+                      type="button"
+                      onMouseDown={e => { e.preventDefault(); applySuggestion(s); }}
+                      className={`px-2 py-0.5 rounded border text-[10px] font-mono transition-colors ${
+                        i === suggestionIndex
+                          ? 'border-primary bg-primary/20 text-primary'
+                          : 'border-border/60 bg-secondary/40 text-muted-foreground hover:border-primary/50 hover:text-primary'
+                      }`}
+                    >
+                      {s}
+                    </button>
+                  ))}
+                  <span className="text-[10px] text-muted-foreground/50 self-center">Tab to cycle</span>
+                </div>
+              )}
 
               <div ref={bottomRef} />
             </div>
