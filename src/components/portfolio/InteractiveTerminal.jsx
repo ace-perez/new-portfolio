@@ -157,14 +157,67 @@ export default function InteractiveTerminal({ open, onClose }) {
     setSuggestionIndex(-1);
   };
 
+  const handleInputChange = (e) => {
+    const val = e.target.value;
+    setInput(val);
+    if (val.trim()) {
+      const s = getCompletions(val);
+      setSuggestions(s);
+      setSuggestionIndex(-1);
+    } else {
+      setSuggestions([]);
+      setSuggestionIndex(-1);
+    }
+  };
+
+  const applySuggestion = (suggestion) => {
+    const parts = input.split(/\s+/);
+    let completed;
+    if (parts.length === 1) {
+      completed = suggestion + ' ';
+    } else {
+      parts[parts.length - 1] = suggestion;
+      completed = parts.join(' ') + ' ';
+    }
+    setInput(completed);
+    setSuggestions([]);
+    setSuggestionIndex(-1);
+    inputRef.current?.focus();
+  };
+
   const handleKeyDown = (e) => {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      if (suggestions.length === 1) {
+        applySuggestion(suggestions[0]);
+      } else if (suggestions.length > 1) {
+        // Cycle through suggestions
+        const next = (suggestionIndex + 1) % suggestions.length;
+        setSuggestionIndex(next);
+        const parts = input.split(/\s+/);
+        if (parts.length === 1) {
+          setInput(suggestions[next]);
+        } else {
+          parts[parts.length - 1] = suggestions[next];
+          setInput(parts.join(' '));
+        }
+      }
+      return;
+    }
+    if (e.key === 'Escape') {
+      setSuggestions([]);
+      setSuggestionIndex(-1);
+      return;
+    }
     if (e.key === 'ArrowUp') {
       e.preventDefault();
+      setSuggestions([]);
       const next = Math.min(cmdIndex + 1, cmdHistory.length - 1);
       setCmdIndex(next);
       setInput(cmdHistory[next] ?? '');
     } else if (e.key === 'ArrowDown') {
       e.preventDefault();
+      setSuggestions([]);
       const next = cmdIndex - 1;
       if (next < 0) { setCmdIndex(-1); setInput(''); }
       else { setCmdIndex(next); setInput(cmdHistory[next]); }
