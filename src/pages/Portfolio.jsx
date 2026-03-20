@@ -12,6 +12,7 @@ import CRTBackground from '../components/portfolio/CRTBackground';
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('home');
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   const handleNavigate = (id) => {
     const el = document.getElementById(id);
