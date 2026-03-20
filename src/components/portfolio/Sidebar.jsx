@@ -55,7 +55,7 @@ export default function Sidebar({ activeSection, onNavigate, onCollapse }) {
         </AnimatePresence>
         {collapsed && <Terminal className="w-5 h-5 text-primary mx-auto" />}
         <button
-          onClick={() => setCollapsed(!collapsed)}
+          onClick={toggle}
           className="ml-auto flex-shrink-0 p-1 rounded text-muted-foreground hover:text-primary hover:bg-sidebar-accent transition-colors"
           title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         >
