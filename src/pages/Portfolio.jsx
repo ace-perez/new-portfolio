@@ -75,9 +75,9 @@ export default function Portfolio() {
             transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
             className="font-mono text-primary text-[10px] leading-tight text-right text-glow select-none"
           >
-            <div>{'try me! ──┐'}</div>
-            <div>{'          │'}</div>
-            <div>{'          ↓'}</div>
+            <div>{'try me! ─┐'}</div>
+            <div>{'         │'}</div>
+            <div>{'         ↓'}</div>
           </motion.div>
           <button
             onClick={() => setTerminalOpen(true)}
