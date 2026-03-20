@@ -8,6 +8,25 @@ import { education } from './EducationSection';
 import { certs } from './CertificationsSection';
 import { links } from './ContactSection';
 
+const BASE_COMMANDS = ['whoami', 'experience', 'skills', 'projects', 'project', 'education', 'certs', 'contact', 'clear', 'help'];
+const SKILL_NAMES = skillCategories.map(c => c.name);
+const PROJECT_NAMES = projects.map(p => p.name);
+
+function getCompletions(input) {
+  const parts = input.split(/\s+/);
+  if (parts.length === 1) {
+    // Complete base command
+    return BASE_COMMANDS.filter(c => c.startsWith(parts[0].toLowerCase()) && c !== parts[0].toLowerCase());
+  }
+  if (parts.length === 2) {
+    const base = parts[0].toLowerCase();
+    const arg = parts[1].toLowerCase();
+    if (base === 'skills') return SKILL_NAMES.filter(n => n.startsWith(arg) && n !== arg);
+    if (base === 'project') return PROJECT_NAMES.filter(n => n.startsWith(arg) && n !== arg);
+  }
+  return [];
+}
+
 const HELP_TEXT = `
 Available commands:
   whoami          — about Ace Perez
