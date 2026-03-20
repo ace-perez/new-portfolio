@@ -56,7 +56,7 @@ export default function Portfolio() {
       </div>
 
       {/* Main content */}
-      <main className="relative z-10 lg:ml-56 px-6 sm:px-10 md:px-16 lg:px-20 max-w-4xl">
+      <main className={`relative z-10 transition-all duration-250 px-6 sm:px-10 md:px-16 lg:px-20 max-w-4xl ${sidebarCollapsed ? 'lg:ml-14' : 'lg:ml-56'}`}>
         <HeroSection />
         <ExperienceSection />
         <SkillsSection />
