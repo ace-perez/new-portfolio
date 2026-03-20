@@ -4,38 +4,40 @@ import TerminalWindow from './TerminalWindow';
 
 const experiences = [
   {
-    role: "Senior Site Reliability Engineer",
-    company: "Company Name",
-    period: "2023 — Present",
+    role: "Site Reliability Engineer / Production Engineer Fellow",
+    company: "Meta & Major League Hacking",
+    period: "June 2025 — September 2025",
+    location: "Dublin, Ireland",
     bullets: [
-      "Designed and maintained Kubernetes clusters serving 50M+ daily requests with 99.99% availability",
-      "Built observability stack with Prometheus, Grafana, and OpenTelemetry reducing MTTR by 65%",
-      "Automated infrastructure provisioning with Terraform, managing 200+ cloud resources across AWS and GCP",
-      "Led incident response for P1/P2 incidents, implementing blameless postmortems culture",
-      "Reduced cloud spend by 35% through right-sizing, spot instances, and resource optimization",
+      "Selected as part of the first EU cohort of the MLH Production Engineering Fellowship (highly selective, < 3% acceptance), mentored by Meta's Dublin Production Engineering team",
+      "Debugged and optimized Linux system services and network configurations during intensive on-call simulations, reducing MTTR for simulated production outages",
+      "Architected CI/CD pipelines and containerized environments using Docker and Bash, resulting in a reduction in deployment errors during simulated production cycles",
+      "Delivered a Linux-focused portfolio website integrating monitoring, services, and system administration concepts",
+      "Helped organize and led the first-ever MLH cohort visit to a Meta office, fostering knowledge-sharing and collaboration between fellows and Meta engineers",
     ],
   },
   {
-    role: "DevOps Engineer",
-    company: "Previous Company",
-    period: "2021 — 2023",
+    role: "Cloud Support Engineer I (Data Analytics)",
+    company: "Amazon Web Services (AWS)",
+    period: "September 2023 — May 2025",
+    location: "County Dublin, Ireland",
     bullets: [
-      "Built CI/CD pipelines with GitHub Actions and ArgoCD, enabling 300+ deployments/week",
-      "Migrated monolithic application to microservices architecture on Kubernetes",
-      "Implemented GitOps workflow with Flux and Helm, reducing deployment errors by 80%",
-      "Set up centralized logging with ELK stack processing 2TB+ logs/day",
-      "Mentored junior engineers on cloud-native best practices and SRE principles",
+      "Handled 200+ high-severity escalations for Kafka and OpenSearch clusters, performing deep-dive debugging to resolve stuck processes, rebalance load, optimize configurations, and stabilize degraded distributed systems",
+      "Consulted on system design and optimization, deploying AWS analytics services such as OpenSearch (Elasticsearch) and Apache Kafka to streamline data pipelines and meet complex client needs",
+      "Developed efficient data processing and analysis workflows using Python, enabling advanced data visualization and actionable insights",
+      "Engineered seamless integration of Apache Kafka with external systems like Prometheus and Logstash, enhancing system functionality, scalability, and performance",
+      "Coordinated effectively with internal cross-functional teams within an Agile environment, ensuring timely and efficient delivery of software solutions",
     ],
   },
   {
-    role: "Cloud Engineer",
-    company: "First Company",
-    period: "2019 — 2021",
+    role: "Cloud Support Associate Intern (Data Analytics)",
+    company: "Amazon Web Services (AWS)",
+    period: "January 2022 — September 2022",
+    location: "Ireland",
     bullets: [
-      "Managed AWS infrastructure for 20+ services using CloudFormation and Ansible",
-      "Designed and implemented multi-region disaster recovery with RPO < 1hr",
-      "Automated security compliance scanning with custom Python tools and AWS Config",
-      "Developed internal developer platform reducing onboarding time from weeks to hours",
+      "Addressed technical challenges in cloud infrastructure and coding, enhancing project efficiency and system stability",
+      "Applied Linux expertise to strengthen team capabilities and guided clients on optimized cloud analytics",
+      "Fostered collaboration through active participation in team meetings and activities, improving technical skills in Linux and Data Analytics",
     ],
   },
 ];
@@ -43,49 +45,45 @@ const experiences = [
 export default function ExperienceSection() {
   return (
     <section id="experience" className="py-20">
-      <SectionHeader command="ls -la experience/" />
+      <div className="mb-8 font-mono">
+        <span className="text-primary text-glow">$</span>
+        <span className="text-muted-foreground ml-2">cat /var/log/career.log</span>
+        <div className="h-px bg-gradient-to-r from-primary/40 to-transparent mt-3" />
+      </div>
+
       <div className="space-y-6">
         {experiences.map((exp, i) => (
-          <TerminalWindow key={i} title={`experience/${exp.company.toLowerCase().replace(/\s+/g, '-')}.log`}>
+          <TerminalWindow key={i} title={`${exp.company.toLowerCase().replace(/[^a-z]/g, '_')}.log`}>
             <div className="space-y-3">
-              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                <span className="text-accent text-glow-cyan font-semibold text-base">{exp.role}</span>
-                <span className="text-muted-foreground">@</span>
-                <span className="text-primary text-glow">{exp.company}</span>
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div>
+                  <p className="text-primary font-semibold">{exp.role}</p>
+                  <p className="text-accent text-glow-cyan text-xs mt-0.5">{exp.company}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-yellow-400/80 text-xs">{exp.period}</p>
+                  <p className="text-muted-foreground text-[10px]">{exp.location}</p>
+                </div>
               </div>
-              <div className="text-muted-foreground text-xs">
-                <span className="text-yellow-400/80">[{exp.period}]</span>
-              </div>
-              <div className="border-t border-border/50 my-3" />
-              <ul className="space-y-2">
-                {exp.bullets.map((bullet, j) => (
-                  <motion.li
+              <div className="border-t border-border/40 pt-3 space-y-2">
+                {exp.bullets.map((b, j) => (
+                  <motion.div
                     key={j}
-                    initial={{ opacity: 0, x: -10 }}
+                    initial={{ opacity: 0, x: -8 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: j * 0.1 }}
-                    className="flex gap-2 text-card-foreground/85"
+                    transition={{ delay: j * 0.07 }}
+                    className="flex gap-2 text-xs text-card-foreground/80"
                   >
-                    <span className="text-primary shrink-0">▸</span>
-                    <span>{bullet}</span>
-                  </motion.li>
+                    <span className="text-primary mt-0.5 shrink-0">▸</span>
+                    <span>{b}</span>
+                  </motion.div>
                 ))}
-              </ul>
+              </div>
             </div>
           </TerminalWindow>
         ))}
       </div>
     </section>
-  );
-}
-
-function SectionHeader({ command }) {
-  return (
-    <div className="mb-8 font-mono">
-      <span className="text-primary text-glow">$</span>
-      <span className="text-muted-foreground ml-2">{command}</span>
-      <div className="h-px bg-gradient-to-r from-primary/40 to-transparent mt-3" />
-    </div>
   );
 }
