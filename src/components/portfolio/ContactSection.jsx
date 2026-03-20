@@ -73,39 +73,7 @@ export default function ContactSection() {
           </div>
         </TerminalWindow>
 
-        {/* Interactive terminal */}
-        <TerminalWindow title="contact — interactive shell">
-          <div className="space-y-2 min-h-[180px]">
-            <div className="text-muted-foreground text-xs">
-              Welcome! Type <span className="text-primary">'help'</span> for available commands.
-            </div>
 
-            {history.map((entry, i) => (
-              <div key={i} className="space-y-1">
-                <div>
-                  <span className="text-primary">$</span>
-                  <span className="text-foreground ml-2">{entry.cmd}</span>
-                </div>
-                <pre className="text-card-foreground/80 whitespace-pre-wrap pl-2 text-xs">
-                  {entry.output}
-                </pre>
-              </div>
-            ))}
-
-            <form onSubmit={handleSubmit} className="flex items-center gap-2">
-              <span className="text-primary">$</span>
-              <input
-                type="text"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                className="flex-1 bg-transparent border-none outline-none text-foreground font-mono text-sm caret-primary"
-                placeholder="type a command..."
-                autoFocus
-              />
-              <span className="cursor-blink text-primary font-bold">▌</span>
-            </form>
-          </div>
-        </TerminalWindow>
       </div>
     </section>
   );
