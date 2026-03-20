@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import TerminalWindow from './TerminalWindow';
 import { Shield } from 'lucide-react';
 
-const certs = [
+export const certs = [
   { name: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services", year: "" },
   { name: "AWS Academy Graduate – AWS Academy Cloud Architecting", issuer: "Amazon Web Services", year: "" },
   { name: "CCNAv7: Switching, Routing, and Wireless Essentials", issuer: "Cisco", year: "" },

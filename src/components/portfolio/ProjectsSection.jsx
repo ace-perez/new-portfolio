@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import TerminalWindow from './TerminalWindow';
 import { GitBranch, Star, ExternalLink } from 'lucide-react';
 
-const projects = [
+export const projects = [
   {
     name: "k8s-autopilot",
     description: "Kubernetes auto-scaling operator that intelligently manages cluster resources based on predictive load patterns. Uses ML models to forecast traffic and pre-scale pods.",

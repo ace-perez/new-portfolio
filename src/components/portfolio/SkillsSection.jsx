@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import TerminalWindow from './TerminalWindow';
 
-const skillCategories = [
+export const skillCategories = [
   {
     name: "cloud_platforms",
     skills: ["AWS (OpenSearch, Kafka, EC2, S3, VPC)", "AWS Analytics Services", "Cloud Infrastructure"],

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import TerminalWindow from './TerminalWindow';
 
-const experiences = [
+export const experiences = [
   {
     role: "Site Reliability Engineer / Production Engineer Fellow",
     company: "Meta & Major League Hacking",

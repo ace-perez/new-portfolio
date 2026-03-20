@@ -1,7 +1,7 @@
 import React from 'react';
 import TerminalWindow from './TerminalWindow';
 
-const education = [
+export const education = [
   {
     degree: "Bachelor's Degree (Hons), Computer Science",
     school: "Technological University Dublin",

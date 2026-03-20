@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import TerminalWindow from './TerminalWindow';
 
-const links = [
+export const links = [
   { label: "linkedin", value: "linkedin.com/in/acenperez", prefix: "https://" },
   { label: "email", value: "acenathen.perez@gmail.com", prefix: "mailto:" },
   { label: "phone", value: "+353 83 827 7111", prefix: "tel:" },
