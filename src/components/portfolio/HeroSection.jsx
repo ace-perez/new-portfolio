@@ -45,18 +45,19 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          {/* ASCII art goose */}
-          <pre className="text-primary text-glow text-[9px] sm:text-[11px] leading-tight mb-8 overflow-hidden select-none">
-{`          __
-        /  •\\
-       |     >==---( ))
-        \\   /
-    .~~~'~~~.
-   /  HONK   \\
-  |           |
-   \\         /
-    \`-v---v-'
-      v     v`}
+          {/* ASCII art goose with pipe */}
+          <pre className="text-primary text-glow text-[9px] sm:text-xs leading-tight mb-8 overflow-hidden select-none">
+{`                 _
+           ,--./  '.
+          /  •  \\_  '>==--[pipe]
+         |       _)
+          '-.__.'|
+         (       )
+          \\_____/|
+          /|  |  |
+         / |  | /
+        /__|__|/
+       (__)(__)`}
           </pre>
 
           <TerminalWindow title="~/about — bash">
