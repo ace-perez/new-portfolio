@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Sidebar from '../components/portfolio/Sidebar';
 import MobileSidebar from '../components/portfolio/MobileSidebar';
 import HeroSection from '../components/portfolio/HeroSection';
