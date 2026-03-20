@@ -4,34 +4,28 @@ import TerminalWindow from './TerminalWindow';
 
 const skillCategories = [
   {
-    name: "containers_orchestration",
-    items: ["Docker", "Kubernetes", "Helm", "Istio", "ArgoCD", "Podman"],
-  },
-  {
     name: "cloud_platforms",
-    items: ["AWS", "GCP", "Azure", "DigitalOcean"],
+    skills: ["AWS (OpenSearch, Kafka, EC2, S3, VPC)", "AWS Analytics Services", "Cloud Infrastructure"],
   },
   {
-    name: "iac_automation",
-    items: ["Terraform", "Ansible", "Pulumi", "CloudFormation", "Packer"],
+    name: "devops_tooling",
+    skills: ["Docker", "CI/CD Pipelines", "Bash Scripting", "Linux System Administration"],
   },
   {
-    name: "ci_cd",
-    items: ["GitHub Actions", "GitLab CI", "Jenkins", "CircleCI", "Flux"],
+    name: "data_engineering",
+    skills: ["Apache Kafka", "OpenSearch / Elasticsearch", "Prometheus", "Logstash", "Python"],
   },
   {
-    name: "monitoring_observability",
-    items: ["Prometheus", "Grafana", "Datadog", "ELK Stack", "OpenTelemetry", "PagerDuty"],
+    name: "networking",
+    skills: ["CCNA (Routing & Switching)", "Enterprise Networking", "Network Security", "Wireless Essentials"],
   },
   {
-    name: "languages_scripting",
-    items: ["Python", "Go", "Bash", "YAML", "HCL", "JavaScript"],
-  },
-  {
-    name: "networking_security",
-    items: ["Nginx", "HAProxy", "Vault", "Cert-Manager", "Calico", "WireGuard"],
+    name: "software_dev",
+    skills: ["Core Java", "Python", "Software Development Life Cycle (SDLC)", "Agile / Scrum"],
   },
 ];
+
+const totalSkills = skillCategories.reduce((acc, c) => acc + c.skills.length, 0);
 
 export default function SkillsSection() {
   return (
@@ -44,29 +38,26 @@ export default function SkillsSection() {
 
       <TerminalWindow title="skills — kubectl output">
         <div className="space-y-5">
-          {/* Table header */}
-          <div className="hidden sm:grid grid-cols-[200px_1fr] gap-3 text-xs text-muted-foreground uppercase border-b border-border/50 pb-2">
+          <div className="text-xs text-muted-foreground grid grid-cols-3 gap-2 pb-2 border-b border-border/40">
             <span>NAMESPACE</span>
-            <span>PODS (READY)</span>
+            <span className="col-span-2">SKILLS</span>
           </div>
 
           {skillCategories.map((cat, i) => (
             <motion.div
               key={cat.name}
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-              className="sm:grid sm:grid-cols-[200px_1fr] gap-3 items-start"
+              transition={{ delay: i * 0.1 }}
+              className="grid grid-cols-3 gap-2 items-start"
             >
-              <span className="text-accent text-glow-cyan text-xs block mb-2 sm:mb-0">
-                {cat.name}
-              </span>
-              <div className="flex flex-wrap gap-2">
-                {cat.items.map((skill) => (
+              <span className="text-accent text-xs font-mono">{cat.name}</span>
+              <div className="col-span-2 flex flex-wrap gap-1.5">
+                {cat.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="px-2.5 py-1 rounded border border-border bg-secondary/60 text-xs text-foreground/90 hover:border-primary/50 hover:text-primary transition-colors"
+                    className="px-2 py-0.5 rounded text-[10px] font-mono border border-border/60 bg-secondary/40 text-card-foreground/80 hover:border-primary/40 hover:text-primary transition-colors"
                   >
                     {skill}
                   </span>
@@ -75,8 +66,8 @@ export default function SkillsSection() {
             </motion.div>
           ))}
 
-          <div className="border-t border-border/50 pt-3 text-xs text-muted-foreground">
-            <span className="text-primary">✓</span> {skillCategories.reduce((a, c) => a + c.items.length, 0)} skills across {skillCategories.length} namespaces — all pods running
+          <div className="pt-3 border-t border-border/40 text-xs font-mono text-muted-foreground">
+            <span className="text-primary">{totalSkills}</span> skills loaded · status: <span className="text-green-400">Running</span>
           </div>
         </div>
       </TerminalWindow>
