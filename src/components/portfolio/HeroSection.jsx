@@ -84,16 +84,16 @@ export default function HeroSection() {
                 <span className="text-muted-foreground"> cat bio.txt</span>
               </div>
               <div className="pl-2 text-card-foreground/90 leading-relaxed max-w-xl">
-                Passionate about building resilient, scalable infrastructure and
-                automating everything. Specialized in Kubernetes, CI/CD pipelines,
-                cloud-native architecture, and keeping systems running at 99.99% uptime.
-                I believe in Infrastructure as Code and observability-first engineering.
+                Proficient expert in AWS and cloud-based solutions, specialized in
+                Software Development and DevOps for scalable, distributed systems.
+                Strong in collaborative teamwork and problem-solving within Agile
+                environments. Based in County Kildare, Ireland.
               </div>
 
               <div className="mt-6 flex flex-wrap gap-3">
-                <StatusBadge label="uptime" value="99.99%" color="text-green-400" />
-                <StatusBadge label="incidents" value="0 critical" color="text-green-400" />
-                <StatusBadge label="deploys" value="500+/month" color="text-accent" />
+                <StatusBadge label="location" value="Kildare, IE" color="text-green-400" />
+                <StatusBadge label="escalations" value="200+ resolved" color="text-green-400" />
+                <StatusBadge label="acceptance" value="< 3% MLH" color="text-accent" />
                 <StatusBadge label="coffee" value="∞" color="text-yellow-400" />
               </div>
             </div>
