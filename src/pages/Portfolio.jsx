@@ -56,13 +56,6 @@ export default function Portfolio() {
 
       {/* Main content */}
       <main className="lg:ml-56 px-6 sm:px-10 md:px-16 lg:px-20 max-w-4xl">
-        {/* Subtle scanline overlay */}
-        <div className="fixed inset-0 pointer-events-none z-40 opacity-[0.015]"
-          style={{
-            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0,255,65,0.08) 1px, rgba(0,255,65,0.08) 2px)',
-          }}
-        />
-
         <HeroSection />
         <ExperienceSection />
         <SkillsSection />
