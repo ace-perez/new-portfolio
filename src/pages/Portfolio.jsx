@@ -24,7 +24,7 @@ export default function Portfolio() {
       isNavigating.current = true;
       setActiveSection(id);
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setTimeout(() => { isNavigating.current = false; }, 1000);
+      setTimeout(() => { isNavigating.current = false; }, 1500);
     }
   };
 
