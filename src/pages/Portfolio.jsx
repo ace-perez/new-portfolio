@@ -34,7 +34,7 @@ export default function Portfolio() {
           setActiveSection(top.target.id);
         }
       },
-      { threshold: 0.15, rootMargin: '-80px 0px -40% 0px' }
+      { threshold: 0.1, rootMargin: '-80px 0px -20% 0px' }
     );
 
     sectionIds.forEach((id) => {
