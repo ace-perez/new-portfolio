@@ -50,7 +50,7 @@ export default function Portfolio() {
       </div>
 
       {/* Mobile sidebar */}
-      <div className="lg:hidden">
+      <div className="relative z-10 lg:hidden">
         <MobileSidebar activeSection={activeSection} onNavigate={handleNavigate} />
       </div>
 
