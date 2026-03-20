@@ -153,6 +153,8 @@ export default function InteractiveTerminal({ open, onClose }) {
     setCmdHistory(prev => [input, ...prev]);
     setCmdIndex(-1);
     setInput('');
+    setSuggestions([]);
+    setSuggestionIndex(-1);
   };
 
   const handleKeyDown = (e) => {
