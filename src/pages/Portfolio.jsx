@@ -45,7 +45,7 @@ export default function Portfolio() {
     <div className="min-h-screen bg-background">
       <CRTBackground />
       {/* Desktop sidebar */}
-      <div className="hidden lg:block">
+      <div className="relative z-10 hidden lg:block">
         <Sidebar activeSection={activeSection} onNavigate={handleNavigate} />
       </div>
 
