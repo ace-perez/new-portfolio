@@ -15,8 +15,14 @@ const navItems = [
   { id: 'contact', label: 'contact/', icon: Mail },
 ];
 
-export default function Sidebar({ activeSection, onNavigate }) {
+export default function Sidebar({ activeSection, onNavigate, onCollapse }) {
   const [collapsed, setCollapsed] = useState(false);
+
+  const toggle = () => {
+    const next = !collapsed;
+    setCollapsed(next);
+    onCollapse?.(next);
+  };
 
   return (
     <motion.aside
