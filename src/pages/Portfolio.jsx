@@ -9,6 +9,7 @@ import EducationSection from '../components/portfolio/EducationSection';
 import CertificationsSection from '../components/portfolio/CertificationsSection';
 import ContactSection from '../components/portfolio/ContactSection';
 import CRTBackground from '../components/portfolio/CRTBackground';
+import InteractiveTerminal from '../components/portfolio/InteractiveTerminal';
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('home');
