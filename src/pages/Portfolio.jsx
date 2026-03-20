@@ -47,7 +47,7 @@ export default function Portfolio() {
       <CRTBackground />
       {/* Desktop sidebar */}
       <div className="relative z-10 hidden lg:block">
-        <Sidebar activeSection={activeSection} onNavigate={handleNavigate} />
+        <Sidebar activeSection={activeSection} onNavigate={handleNavigate} onCollapse={setSidebarCollapsed} />
       </div>
 
       {/* Mobile sidebar */}
