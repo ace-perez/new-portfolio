@@ -3,13 +3,12 @@ import TerminalWindow from './TerminalWindow';
 
 const education = [
   {
-    degree: "B.S. Computer Science",
-    school: "University Name",
-    period: "2015 — 2019",
+    degree: "Bachelor's Degree (Hons), Computer Science",
+    school: "Technological University Dublin",
+    period: "2019 — 2023",
     highlights: [
-      "Distributed Systems & Cloud Computing focus",
-      "GPA: 3.8 / 4.0",
-      "Senior thesis: 'Autonomous Container Orchestration with Reinforcement Learning'",
+      "Honours degree with focus on software development and cloud computing",
+      "Developed strong foundations in distributed systems and Agile methodologies",
     ],
   },
 ];
