@@ -46,7 +46,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8 }}
         >
           {/* ASCII art goose */}
-          <pre className="text-primary text-glow text-[7px] sm:text-[9px] leading-[1.2] mb-8 overflow-hidden select-none">
+          <pre className="text-primary text-glow text-[5px] sm:text-[7px] leading-[1.2] mb-8 overflow-hidden select-none">
 {`⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣤⣀⣀⡀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⡿⠋⠁⠈⠉⠛⢻⣶⡀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⠋⠀⠀⠀⠀⠀⠀⠀⢹⡇⠀⠀⠀
