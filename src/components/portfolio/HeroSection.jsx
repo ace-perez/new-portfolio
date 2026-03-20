@@ -64,7 +64,7 @@ export default function HeroSection() {
               </div>
               <div className="pl-2">
                 <p className="text-foreground text-lg sm:text-xl font-semibold">
-                  Your Name
+                  Ace Perez
                 </p>
               </div>
 
