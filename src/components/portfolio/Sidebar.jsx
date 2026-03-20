@@ -1,8 +1,8 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Terminal, Server, Shield, FolderOpen, 
-  FileText, Mail, ChevronRight, Cpu
+  FileText, Mail, ChevronRight, Cpu, PanelLeftClose, PanelLeftOpen
 } from 'lucide-react';
 
 const navItems = [
@@ -16,26 +16,61 @@ const navItems = [
 ];
 
 export default function Sidebar({ activeSection, onNavigate }) {
+  const [collapsed, setCollapsed] = useState(false);
+
   return (
-    <aside className="fixed left-0 top-0 h-full w-56 bg-sidebar border-r border-sidebar-border z-50 flex flex-col">
+    <motion.aside
+      animate={{ width: collapsed ? 56 : 224 }}
+      transition={{ duration: 0.25, ease: 'easeInOut' }}
+      className="fixed left-0 top-0 h-full bg-sidebar border-r border-sidebar-border z-50 flex flex-col overflow-hidden"
+    >
       {/* Logo area */}
-      <div className="p-5 border-b border-sidebar-border">
-        <div className="flex items-center gap-2">
-          <Terminal className="w-5 h-5 text-primary" />
-          <span className="font-mono text-sm font-semibold text-primary text-glow">
-            ace@perez
-          </span>
-        </div>
-        <p className="text-[10px] font-mono text-muted-foreground mt-1.5">
-          ~/portfolio
-        </p>
+      <div className="p-3 border-b border-sidebar-border flex items-center justify-between min-h-[60px]">
+        <AnimatePresence>
+          {!collapsed && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="flex flex-col"
+            >
+              <div className="flex items-center gap-2">
+                <Terminal className="w-5 h-5 text-primary flex-shrink-0" />
+                <span className="font-mono text-sm font-semibold text-primary text-glow whitespace-nowrap">
+                  ace@perez
+                </span>
+              </div>
+              <p className="text-[10px] font-mono text-muted-foreground mt-1 pl-7">
+                ~/portfolio
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        {collapsed && <Terminal className="w-5 h-5 text-primary mx-auto" />}
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          className="ml-auto flex-shrink-0 p-1 rounded text-muted-foreground hover:text-primary hover:bg-sidebar-accent transition-colors"
+          title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+        >
+          {collapsed ? <PanelLeftOpen className="w-4 h-4" /> : <PanelLeftClose className="w-4 h-4" />}
+        </button>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 py-4 px-3 space-y-0.5">
-        <p className="text-[10px] font-mono text-muted-foreground px-2 mb-3 uppercase tracking-wider">
-          File Explorer
-        </p>
+      <nav className="flex-1 py-4 px-2 space-y-0.5">
+        <AnimatePresence>
+          {!collapsed && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="text-[10px] font-mono text-muted-foreground px-2 mb-3 uppercase tracking-wider whitespace-nowrap"
+            >
+              File Explorer
+            </motion.p>
+          )}
+        </AnimatePresence>
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeSection === item.id;
@@ -43,17 +78,30 @@ export default function Sidebar({ activeSection, onNavigate }) {
             <motion.button
               key={item.id}
               onClick={() => onNavigate(item.id)}
-              whileHover={{ x: 4 }}
-              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded text-xs font-mono transition-colors ${
+              whileHover={{ x: collapsed ? 0 : 4 }}
+              title={collapsed ? item.label : undefined}
+              className={`w-full flex items-center gap-2.5 px-2 py-2 rounded text-xs font-mono transition-colors ${
                 isActive
                   ? 'bg-primary/10 text-primary text-glow'
                   : 'text-sidebar-foreground/70 hover:text-primary hover:bg-sidebar-accent'
-              }`}
+              } ${collapsed ? 'justify-center' : ''}`}
             >
               <Icon className="w-3.5 h-3.5 flex-shrink-0" />
-              <span>{item.label}</span>
-              {isActive && (
-                <ChevronRight className="w-3 h-3 ml-auto text-primary" />
+              <AnimatePresence>
+                {!collapsed && (
+                  <motion.span
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: 'auto' }}
+                    exit={{ opacity: 0, width: 0 }}
+                    transition={{ duration: 0.15 }}
+                    className="overflow-hidden whitespace-nowrap"
+                  >
+                    {item.label}
+                  </motion.span>
+                )}
+              </AnimatePresence>
+              {!collapsed && isActive && (
+                <ChevronRight className="w-3 h-3 ml-auto text-primary flex-shrink-0" />
               )}
             </motion.button>
           );
@@ -62,11 +110,22 @@ export default function Sidebar({ activeSection, onNavigate }) {
 
       {/* Status bar */}
       <div className="p-3 border-t border-sidebar-border">
-        <div className="flex items-center gap-2 text-[10px] font-mono text-muted-foreground">
-          <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-          <span>all systems operational</span>
+        <div className="flex items-center gap-2 text-[10px] font-mono text-muted-foreground justify-center">
+          <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse flex-shrink-0" />
+          <AnimatePresence>
+            {!collapsed && (
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="whitespace-nowrap"
+              >
+                all systems operational
+              </motion.span>
+            )}
+          </AnimatePresence>
         </div>
       </div>
-    </aside>
+    </motion.aside>
   );
 }
