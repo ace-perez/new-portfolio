@@ -29,13 +29,14 @@ export default function CertificationsSection() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="flex items-start gap-3 p-3 rounded border border-border/50 bg-secondary/30 hover:border-primary/30 transition-colors"
+              className={`flex items-start gap-3 p-3 rounded border border-border/50 bg-secondary/30 transition-colors ${cert.url ? 'hover:border-primary/30 cursor-pointer' : 'hover:border-primary/30'}`}
+              onClick={() => cert.url && window.open(cert.url, '_blank')}
             >
               <Shield className="w-4 h-4 text-primary mt-0.5 shrink-0" />
               <div>
-                <p className="text-foreground/90 text-xs font-medium">{cert.name}</p>
+                <p className={`text-xs font-medium ${cert.url ? 'text-primary/90 hover:text-primary' : 'text-foreground/90'}`}>{cert.name}</p>
                 <p className="text-muted-foreground text-[10px] mt-0.5">
-                  {cert.issuer} · <span className="text-yellow-400/80">{cert.year}</span>
+                  {cert.issuer}{cert.year && <> · <span className="text-yellow-400/80">{cert.year}</span></>}{cert.note && <> · <span className="text-yellow-400/60 italic">{cert.note}</span></>}
                 </p>
               </div>
             </motion.div>
