@@ -5,28 +5,38 @@ import { GitBranch, Star, ExternalLink } from 'lucide-react';
 
 export const projects = [
   {
-    name: "k8s-autopilot",
-    description: "Kubernetes auto-scaling operator that intelligently manages cluster resources based on predictive load patterns. Uses ML models to forecast traffic and pre-scale pods.",
-    tech: ["Go", "Kubernetes", "Prometheus", "gRPC"],
-    stars: 342,
+    name: "ace-perez-portfolio",
+    description: "Containerized Flask application on AWS EC2, configured with Cloudflare DNS and a reverse proxy, orchestrated via Docker Compose and running as a Linux-managed service. Includes CI/CD pipelines with automated testing and container redeployments on merge, and Prometheus monitoring for EC2 resource utilization.",
+    tech: ["AWS EC2", "Python", "Docker", "CI/CD"],
+    bullets: [
+      "Designed and operated a containerized Flask app on AWS EC2 with Cloudflare DNS, reverse proxy, Docker Compose, and Linux service management.",
+      "Implemented CI/CD pipelines with automated testing and container redeployments on merge; integrated Prometheus monitoring for EC2 resource utilization.",
+    ],
   },
   {
-    name: "infra-as-code-templates",
-    description: "Production-ready Terraform modules for AWS/GCP infrastructure. Includes VPC, EKS, monitoring stack, and security baselines following CIS benchmarks.",
-    tech: ["Terraform", "AWS", "GCP", "Python"],
-    stars: 218,
+    name: "twitter-data-visualizer",
+    description: "Scalable real-time pipeline using AWS Kinesis, OpenSearch, and S3 to ingest Twitter data and generate dashboards analyzing NBA player popularity trends.",
+    tech: ["AWS Kinesis", "Python", "Twitter API", "OpenSearch"],
+    bullets: [
+      "Designed and deployed a scalable real-time pipeline using AWS Kinesis, OpenSearch, and S3 to ingest Twitter data and generate NBA player popularity dashboards.",
+    ],
   },
   {
-    name: "deploy-guardian",
-    description: "CI/CD pipeline security tool that scans container images, validates Helm charts, and enforces OPA policies before deployment. Integrates with GitHub Actions and GitLab CI.",
-    tech: ["Python", "OPA", "Docker", "GitHub Actions"],
-    stars: 156,
+    name: "deepracer-ml-hackathon",
+    description: "Placed 3rd in AWS Ireland's Internal DeepRacer competition by developing a high-performing reinforcement learning model.",
+    tech: ["AWS Bedrock", "Python", "TensorFlow"],
+    bullets: [
+      "Placed 3rd in AWS Ireland's Internal DeepRacer competition by developing a high-performing reinforcement learning model.",
+    ],
   },
   {
-    name: "incident-commander",
-    description: "Slack-integrated incident management bot that automates runbooks, creates war rooms, and generates postmortem documents from incident timelines.",
-    tech: ["Go", "Slack API", "PostgreSQL", "Redis"],
-    stars: 89,
+    name: "medicine-intake-tracker",
+    description: "Mobile app with NFC integration to improve patient medication adherence, enabling seamless intake tracking with cloud backends for secure data storage and real-time accessibility.",
+    tech: ["NFC", "Flutter", "Firebase"],
+    bullets: [
+      "Built a mobile app with NFC integration to improve patient medication adherence, enabling seamless intake tracking.",
+      "Leveraged cloud backends for secure data storage and real-time accessibility across devices.",
+    ],
   },
 ];
 
