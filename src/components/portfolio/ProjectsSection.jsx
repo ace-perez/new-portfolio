@@ -60,23 +60,19 @@ export default function ProjectsSection() {
           >
             <TerminalWindow title={`projects/${project.name}`}>
               <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <GitBranch className="w-4 h-4 text-primary" />
-                    <span className="text-primary text-glow font-semibold">{project.name}</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1">
-                      <Star className="w-3 h-3 text-yellow-400" />
-                      {project.stars}
-                    </span>
-                    <ExternalLink className="w-3 h-3 hover:text-primary cursor-pointer transition-colors" />
-                  </div>
+                <div className="flex items-center gap-2">
+                  <GitBranch className="w-4 h-4 text-primary" />
+                  <span className="text-primary text-glow font-semibold">{project.name}</span>
                 </div>
 
-                <p className="text-card-foreground/80 text-xs leading-relaxed">
-                  {project.description}
-                </p>
+                <ul className="space-y-1.5">
+                  {project.bullets.map((b, j) => (
+                    <li key={j} className="flex items-start gap-2 text-card-foreground/80 text-xs leading-relaxed">
+                      <span className="text-primary mt-0.5 flex-shrink-0">▸</span>
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
 
                 <div className="flex flex-wrap gap-1.5 pt-1">
                   {project.tech.map((t) => (
