@@ -10,7 +10,7 @@ export const education = [
       "Honours degree with focus on software development and cloud computing",
       "Developed strong foundations in distributed systems and Agile methodologies",
       "AWS Campus Ambassador — championed cloud education and community engagement across campus",
-      "Recipient of the Wells for Zoë Award, recognised for driving the highest student engagement in the university's charity fundraiser",
+      "Recipient of the Wells for Zoë Award, recognised for driving the highest student engagement with the Wells for Zoë charity fundraiser",
     ],
   },
 ];
