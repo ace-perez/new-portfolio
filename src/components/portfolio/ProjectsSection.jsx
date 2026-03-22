@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import TerminalWindow from './TerminalWindow';
-import { GitBranch, Star, ExternalLink } from 'lucide-react';
+import { GitBranch } from 'lucide-react';
 
 export const projects = [
   {
