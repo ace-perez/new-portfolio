@@ -7,8 +7,9 @@ import { projects } from './ProjectsSection';
 import { education } from './EducationSection';
 import { certs } from './CertificationsSection';
 import { links } from './ContactSection';
+import { games } from './GamesSection';
 
-const BASE_COMMANDS = ['whoami', 'experience', 'skills', 'projects', 'project', 'education', 'certs', 'contact', 'clear', 'help'];
+const BASE_COMMANDS = ['whoami', 'experience', 'skills', 'projects', 'project', 'education', 'certs', 'contact', 'games', 'clear', 'help'];
 const SKILL_NAMES = skillCategories.map(c => c.name);
 const PROJECT_NAMES = projects.map(p => p.name);
 
@@ -38,6 +39,7 @@ Available commands:
   education       — academic background
   certs           — certifications
   contact         — contact links
+  games           — 100% completed games
   clear           — clear terminal
   help            — show this help
 `.trim();
@@ -98,6 +100,13 @@ Bio: Proficient expert in AWS and cloud-based solutions, specialized in
 
     case 'contact': {
       return links.map(l => `  ${l.label.padEnd(10)} ${l.value}`).join('\n');
+    }
+
+    case 'games': {
+      return `100% Completed Games (${games.length} total)\n\n` +
+        games.map((g, i) =>
+          `  [${String(i + 1).padStart(2, '0')}] ${g.name.padEnd(40)} 🏆 ${g.achievements} achievements · ${g.completedDate}`
+        ).join('\n');
     }
 
     case 'help':
