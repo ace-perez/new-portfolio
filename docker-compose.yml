@@ -6,7 +6,7 @@ services:
     container_name: new-portfolio
     restart: always
     environment:
-      CERTBOT_EMAIL: acenathen.perez@gmail.com
+      CERTBOT_EMAIL: aceleagueoflegends@gmail.com
       NGINX_SERVER_NAME: ace-perez-portfolio.dev
     ports:
       - "80:80"
