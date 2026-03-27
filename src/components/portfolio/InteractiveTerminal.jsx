@@ -94,7 +94,7 @@ Bio: Proficient expert in AWS and cloud-based solutions, specialized in
 
     case 'certs': {
       return certs.map((c, i) =>
-        `  [${i + 1}] ${c.name}\n       Issued by: ${c.issuer}${c.year ? ` · ${c.year}` : ''}`
+        `  [${i + 1}] ${c.name}${c.note ? ` [${c.note}]` : ''}\n       Issued by: ${c.issuer}${c.year ? ` · ${c.year}` : ''}`
       ).join('\n');
     }
 
