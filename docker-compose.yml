@@ -1,0 +1,21 @@
+# =============================================================
+# Replace the values below before deploying:
+#   - CERTBOT_EMAIL: your email for Let's Encrypt notifications
+# =============================================================
+
+services:
+  portfolio:
+    build: .
+    container_name: new-portfolio
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - CERTBOT_EMAIL=your-email@example.com
+    volumes:
+      # Persist SSL certificates across container restarts
+      - letsencrypt:/etc/letsencrypt
+
+volumes:
+  letsencrypt:

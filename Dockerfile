@@ -6,13 +6,14 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-# Stage 2: Serve with Nginx
-FROM nginx:alpine
-# Remove default Nginx page
+# Stage 2: Serve with nginx-certbot (matches existing EC2 setup)
+FROM jonasal/nginx-certbot:latest
+
+# Remove default content
 RUN rm -rf /usr/share/nginx/html/*
-# Copy built assets
+
+# Copy built static files
 COPY --from=build /app/dist /usr/share/nginx/html
-# Copy custom Nginx config for SPA routing
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+
+# Copy nginx site config into user_conf.d (nginx-certbot convention)
+COPY nginx_site.conf /etc/nginx/user_conf.d/portfolio.conf
