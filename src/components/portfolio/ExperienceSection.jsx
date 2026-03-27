@@ -17,7 +17,7 @@ export const experiences = [
     ],
   },
   {
-    role: "Cloud Support Engineer I (Data Analytics)",
+    role: "Cloud Engineer I (Data Analytics)",
     company: "Amazon Web Services (AWS)",
     period: "September 2023 — May 2025",
     location: "County Dublin, Ireland",

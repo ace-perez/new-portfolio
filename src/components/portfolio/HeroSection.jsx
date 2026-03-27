@@ -5,8 +5,9 @@ import TerminalWindow from './TerminalWindow';
 const roles = [
   "DevOps Engineer",
   "Site Reliability Engineer",
-  "Cloud Support Engineer",
+  "Cloud Engineer",
   "Production Engineer",
+  "Software Engineer",
 ];
 
 export default function HeroSection() {
