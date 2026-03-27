@@ -34,9 +34,9 @@ Available commands:
   experience      — work history
   skills          — technical skills
   skills <name>   — skills in a category (e.g. skills devops_tooling)
+  education       — academic background
   projects        — list projects
   project <name>  — details for a specific project
-  education       — academic background
   certs           — certifications
   contact         — contact links
   games           — 100% completed games
