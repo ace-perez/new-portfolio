@@ -45,7 +45,7 @@ export default function Sidebar({ activeSection, onNavigate, onCollapse }) {
               <div className="flex items-center gap-2">
                 <Terminal className="w-5 h-5 text-primary flex-shrink-0" />
                 <span className="font-mono text-sm font-semibold text-primary text-glow whitespace-nowrap">
-                  ace@perez
+                  ace_perez@ireland
                 </span>
               </div>
               <p className="text-[10px] font-mono text-muted-foreground mt-1 pl-7">
