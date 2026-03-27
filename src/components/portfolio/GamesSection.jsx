@@ -6,10 +6,8 @@ import { Trophy } from 'lucide-react';
 export const games = [
   {
     name: "Example Game Title",
-    platform: "PC",
     achievements: "50/50",
     completedDate: "2023",
-    notes: "Add your notes here",
   },
 ];
 
@@ -23,27 +21,24 @@ export default function GamesSection() {
       </div>
 
       <TerminalWindow title="games — 100% completed">
-        <div className="space-y-3">
+        <div className="grid grid-cols-2 gap-2">
           {games.map((game, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, x: -10 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="flex items-start gap-3 p-3 rounded border border-border/50 bg-secondary/30 hover:border-primary/30 transition-colors"
+              transition={{ delay: i * 0.05 }}
+              className="flex items-start gap-2 p-2.5 rounded border border-border/50 bg-secondary/30 hover:border-primary/30 transition-colors"
             >
-              <Trophy className="w-4 h-4 text-yellow-400/80 mt-0.5 shrink-0" />
-              <div className="flex-1">
-                <p className="text-foreground/90 text-xs font-medium">{game.name}</p>
+              <Trophy className="w-3.5 h-3.5 text-yellow-400/80 mt-0.5 shrink-0" />
+              <div>
+                <p className="text-foreground/90 text-xs font-medium leading-tight">{game.name}</p>
                 <p className="text-muted-foreground text-[10px] mt-0.5">
-                  {game.platform}
-                  {game.achievements && <> · <span className="text-primary/70">{game.achievements} achievements</span></>}
-                  {game.completedDate && <> · <span className="text-yellow-400/80">{game.completedDate}</span></>}
+                  {game.achievements && <span className="text-primary/70">{game.achievements} achievements</span>}
+                  {game.achievements && game.completedDate && <> · </>}
+                  {game.completedDate && <span className="text-yellow-400/80">{game.completedDate}</span>}
                 </p>
-                {game.notes && (
-                  <p className="text-muted-foreground/60 text-[10px] mt-1 italic">// {game.notes}</p>
-                )}
               </div>
             </motion.div>
           ))}
