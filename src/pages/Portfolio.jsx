@@ -8,6 +8,7 @@ import SkillsSection from '../components/portfolio/SkillsSection';
 import ProjectsSection from '../components/portfolio/ProjectsSection';
 import EducationSection from '../components/portfolio/EducationSection';
 import CertificationsSection from '../components/portfolio/CertificationsSection';
+import GamesSection from '../components/portfolio/GamesSection';
 import ContactSection from '../components/portfolio/ContactSection';
 import CRTBackground from '../components/portfolio/CRTBackground';
 import InteractiveTerminal from '../components/portfolio/InteractiveTerminal';
@@ -17,7 +18,7 @@ export default function Portfolio() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [terminalOpen, setTerminalOpen] = useState(false);
   const isNavigating = useRef(false);
-  const sectionIds = ['home', 'experience', 'skills', 'projects', 'education', 'certifications', 'contact'];
+  const sectionIds = ['home', 'experience', 'skills', 'projects', 'education', 'certifications', 'games', 'contact'];
 
   const handleNavigate = (id) => {
     const el = document.getElementById(id);
@@ -76,6 +77,7 @@ export default function Portfolio() {
         <ProjectsSection />
         <EducationSection />
         <CertificationsSection />
+        <GamesSection />
         <ContactSection />
 
         {/* Terminal FAB with ASCII pointer */}
