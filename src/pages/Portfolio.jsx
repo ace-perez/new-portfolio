@@ -18,7 +18,7 @@ export default function Portfolio() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [terminalOpen, setTerminalOpen] = useState(false);
   const isNavigating = useRef(false);
-  const sectionIds = ['home', 'experience', 'skills', 'projects', 'education', 'certifications', 'games', 'contact'];
+  const sectionIds = ['home', 'experience', 'skills', 'education', 'projects', 'certifications', 'games', 'contact'];
 
   const handleNavigate = (id) => {
     const el = document.getElementById(id);
@@ -74,8 +74,8 @@ export default function Portfolio() {
         <HeroSection />
         <ExperienceSection />
         <SkillsSection />
-        <ProjectsSection />
         <EducationSection />
+        <ProjectsSection />
         <CertificationsSection />
         <GamesSection />
         <ContactSection />
