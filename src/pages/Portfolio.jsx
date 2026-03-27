@@ -106,7 +106,7 @@ export default function Portfolio() {
         <footer className="py-12 border-t border-border/30 font-mono text-xs text-muted-foreground text-center">
           <div className="space-y-1">
             <p>
-              <span className="text-primary">$</span> echo "Built with ☕ and too many yaml files"
+              <span className="text-primary">$</span> echo "Hello World!"
             </p>
             <p className="text-[10px]">© {new Date().getFullYear()} — All systems nominal</p>
           </div>
