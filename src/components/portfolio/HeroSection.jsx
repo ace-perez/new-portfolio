@@ -115,8 +115,7 @@ export default function HeroSection() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <StatusBadge label="location" value="Kildare, IE" color="text-green-400" />
                 <StatusBadge label="escalations" value="200+ resolved" color="text-green-400" />
-                <StatusBadge label="acceptance" value="< 3% MLH" color="text-accent" />
-                <StatusBadge label="coffee" value="∞" color="text-yellow-400" />
+                <StatusBadge label="energy drinks" value="∞" color="text-yellow-400" />
               </div>
             </div>
           </TerminalWindow>
