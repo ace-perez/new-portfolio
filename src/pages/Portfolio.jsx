@@ -1,17 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
+
+// Critical above-the-fold — loaded eagerly
 import Sidebar from '../components/portfolio/Sidebar';
 import MobileSidebar from '../components/portfolio/MobileSidebar';
 import HeroSection from '../components/portfolio/HeroSection';
-import ExperienceSection from '../components/portfolio/ExperienceSection';
-import SkillsSection from '../components/portfolio/SkillsSection';
-import ProjectsSection from '../components/portfolio/ProjectsSection';
-import EducationSection from '../components/portfolio/EducationSection';
-import CertificationsSection from '../components/portfolio/CertificationsSection';
-import GamesSection from '../components/portfolio/GamesSection';
-import ContactSection from '../components/portfolio/ContactSection';
 import CRTBackground from '../components/portfolio/CRTBackground';
-import InteractiveTerminal from '../components/portfolio/InteractiveTerminal';
+
+// Below-the-fold — lazy loaded for faster initial paint
+const ExperienceSection     = lazy(() => import('../components/portfolio/ExperienceSection'));
+const SkillsSection         = lazy(() => import('../components/portfolio/SkillsSection'));
+const EducationSection      = lazy(() => import('../components/portfolio/EducationSection'));
+const ProjectsSection       = lazy(() => import('../components/portfolio/ProjectsSection'));
+const CertificationsSection = lazy(() => import('../components/portfolio/CertificationsSection'));
+const GamesSection          = lazy(() => import('../components/portfolio/GamesSection'));
+const ContactSection        = lazy(() => import('../components/portfolio/ContactSection'));
+const InteractiveTerminal   = lazy(() => import('../components/portfolio/InteractiveTerminal'));
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('home');
@@ -72,13 +76,15 @@ export default function Portfolio() {
       {/* Main content */}
       <main className={`relative z-10 transition-all duration-250 px-6 sm:px-10 md:px-16 lg:px-20 max-w-4xl ${sidebarCollapsed ? 'lg:ml-14' : 'lg:ml-56'}`}>
         <HeroSection />
-        <ExperienceSection />
-        <SkillsSection />
-        <EducationSection />
-        <ProjectsSection />
-        <CertificationsSection />
-        <GamesSection />
-        <ContactSection />
+        <Suspense fallback={null}>
+          <ExperienceSection />
+          <SkillsSection />
+          <EducationSection />
+          <ProjectsSection />
+          <CertificationsSection />
+          <GamesSection />
+          <ContactSection />
+        </Suspense>
 
         {/* Terminal FAB with ASCII pointer */}
         <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-1">
@@ -100,7 +106,9 @@ export default function Portfolio() {
           </button>
         </div>
 
-        <InteractiveTerminal open={terminalOpen} onClose={() => setTerminalOpen(false)} />
+        <Suspense fallback={null}>
+          <InteractiveTerminal open={terminalOpen} onClose={() => setTerminalOpen(false)} />
+        </Suspense>
 
         {/* Footer */}
         <footer className="py-12 border-t border-border/30 font-mono text-xs text-muted-foreground text-center">
