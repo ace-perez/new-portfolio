@@ -6,6 +6,9 @@ import { Shield } from 'lucide-react';
 export const certs = [
   { name: "Oracle Certified Associate, Java SE 8 Programmer", issuer: "Oracle", year: "", url: "https://catalog-education.oracle.com/ords/certview/sharebadge?id=EC6D4B34BDDFC093C35C55E5AA65CFF58D3657EEAF231356F5D3B3E2BF236F5B" },
   { name: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services", year: "", url: "https://www.credly.com/badges/8bf039fa-2dfb-4fb5-a0b3-5161b8dc5364?source=linked_in_profile", note: "renewal pending" },
+  { name: "AWS Certified Developer Associate", issuer: "Amazon Web Services", year: "", note: "in progress" },
+  { name: "AWS Certified Solutions Architect Associate", issuer: "Amazon Web Services", year: "", note: "not started" },
+  { name: "Red Hat Certified System Administrator", issuer: "Red Hat", year: "", note: "in progress" },
   { name: "AWS Academy Graduate – AWS Academy Cloud Architecting", issuer: "Amazon Web Services", year: "", url: "https://www.credly.com/badges/63a9502c-04f4-407e-9390-338a257329e5" },
   { name: "CCNAv7: Switching, Routing, and Wireless Essentials", issuer: "Cisco", year: "" },
   { name: "CCNAv7: Enterprise Networking, Security, and Automation", issuer: "Cisco", year: "" },
