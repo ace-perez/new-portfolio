@@ -1,21 +1,20 @@
-# =============================================================
-# Replace the values below before deploying:
-#   - CERTBOT_EMAIL: your email for Let's Encrypt notifications
-# =============================================================
+version: "3.8"
 
 services:
   portfolio:
     build: .
     container_name: new-portfolio
-    restart: unless-stopped
+    restart: always
+    environment:
+      CERTBOT_EMAIL: acenathen.perez@gmail.com
+      NGINX_SERVER_NAME: ace-perez-portfolio.dev
     ports:
       - "80:80"
       - "443:443"
-    environment:
-      - CERTBOT_EMAIL=acenathen.perez@gmail.com
     volumes:
-      # Persist SSL certificates across container restarts
-      - letsencrypt:/etc/letsencrypt
+      - nginx_secrets:/etc/letsencrypt
+      - nginx_certbot_www:/var/www/certbot
 
 volumes:
-  letsencrypt:
+  nginx_secrets:
+  nginx_certbot_www:
