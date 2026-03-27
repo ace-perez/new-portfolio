@@ -4,11 +4,15 @@ import TerminalWindow from './TerminalWindow';
 import { Trophy } from 'lucide-react';
 
 export const games = [
-  {
-    name: "Example Game Title",
-    achievements: "50/50",
-    completedDate: "2023",
-  },
+  { name: "Fallout: New Vegas", achievements: "75/75", completedDate: "2023" },
+  { name: "Fallout 4", achievements: "84/84", completedDate: "2025" },
+  { name: "Divinity: Original Sin 2", achievements: "57/57", completedDate: "2025" },
+  { name: "High on Life 2", achievements: "44/44", completedDate: "2026" },
+  { name: "Far Cry 3", achievements: "44/44", completedDate: "2025" },
+  { name: "The Walking Dead", achievements: "48/48", completedDate: "2026" },
+  { name: "Maneater", achievements: "44/44", completedDate: "2026" },
+  { name: "Star Wars KOTOR 2: The Sith Lords", achievements: "57/57", completedDate: "2025" },
+  { name: "Duck Detective: The Ghost of Glamping", achievements: "11/11", completedDate: "2025" },
 ];
 
 export default function GamesSection() {
