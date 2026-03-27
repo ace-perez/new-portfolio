@@ -49,7 +49,7 @@ function processCommand(cmd) {
 
   switch (base) {
     case 'whoami':
-      return `Ace Perez — DevOps / SRE / Cloud Support Engineer
+      return `Ace Perez — DevOps / SRE / Cloud Engineer
 Location: County Kildare, Ireland
 Bio: Proficient expert in AWS and cloud-based solutions, specialized in
      Software Development and DevOps for scalable, distributed systems.
@@ -116,7 +116,7 @@ Bio: Proficient expert in AWS and cloud-based solutions, specialized in
 
 export default function InteractiveTerminal({ open, onClose }) {
   const [history, setHistory] = useState([
-    { type: 'output', text: 'Welcome to ace@perez — interactive shell\nType "help" to explore.' },
+    { type: 'output', text: 'Welcome to ace_perez@ireland — interactive shell\nType "help" to explore.' },
   ]);
   const [input, setInput] = useState('');
   const [cmdHistory, setCmdHistory] = useState([]);
@@ -259,7 +259,7 @@ export default function InteractiveTerminal({ open, onClose }) {
               <div className="flex-1 text-center flex items-center justify-center gap-2">
                 <Terminal className="w-3.5 h-3.5 text-primary" />
                 <span className="text-xs font-mono text-muted-foreground">
-                  ace@perez:~/portfolio — interactive shell
+                  ace_perez@ireland:~/portfolio — interactive shell
                 </span>
               </div>
               <button onClick={onClose} className="text-muted-foreground hover:text-primary transition-colors">
@@ -276,7 +276,7 @@ export default function InteractiveTerminal({ open, onClose }) {
                 <div key={i} className="mb-1.5">
                   {entry.type === 'input' ? (
                     <div>
-                      <span className="text-primary">ace@perez</span>
+                      <span className="text-primary">ace_perez@ireland</span>
                       <span className="text-muted-foreground">:~$ </span>
                       <span className="text-foreground">{entry.text}</span>
                     </div>
@@ -290,7 +290,7 @@ export default function InteractiveTerminal({ open, onClose }) {
 
               {/* Input line */}
               <form onSubmit={handleSubmit} className="flex items-center gap-1 mt-1">
-                <span className="text-primary">ace@perez</span>
+                <span className="text-primary">ace_perez@ireland</span>
                 <span className="text-muted-foreground">:~$ </span>
                 <input
                   ref={inputRef}
