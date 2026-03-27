@@ -30,7 +30,7 @@ export const experiences = [
     ],
   },
   {
-    role: "Cloud Support Associate Intern (Data Analytics)",
+    role: "Cloud Associate Intern (Data Analytics)",
     company: "Amazon Web Services (AWS)",
     period: "January 2022 — September 2022",
     location: "Ireland",
