@@ -30,6 +30,16 @@ export const experiences = [
     ],
   },
   {
+    role: "Backend Software Engineer",
+    company: "Blitzware.AI",
+    period: "January 2024 — March 2025",
+    location: "Dublin, Ireland",
+    bullets: [
+      "Managed deployment pipelines and production environments ensuring reliable rollout of updates across backend services",
+      "Implemented logging and observability across the full application stack, improving debugging and system reliability",
+    ],
+  },
+  {
     role: "Cloud Associate Intern (Data Analytics)",
     company: "Amazon Web Services (AWS)",
     period: "January 2022 — September 2022",
