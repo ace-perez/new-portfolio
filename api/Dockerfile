@@ -10,6 +10,8 @@ RUN npm install --omit=dev --build-from-source
 
 COPY . .
 
+ENV NEW_RELIC_NO_CONFIG_FILE=true
+
 EXPOSE 3001
 
 CMD ["node", "index.js"]
