@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { 
   Terminal, Server, Shield, FolderOpen, 
-  FileText, Mail, Cpu, Menu, X, Gamepad2
+  FileText, Mail, Cpu, Menu, X, Gamepad2, BookOpen
 } from 'lucide-react';
 
 const navItems = [
@@ -14,13 +15,19 @@ const navItems = [
   { id: 'certifications', label: 'certs/', icon: Shield },
   { id: 'games', label: 'games/', icon: Gamepad2 },
   { id: 'contact', label: 'contact/', icon: Mail },
+  { id: 'blog', label: 'blog/', icon: BookOpen, route: '/blog' },
 ];
 
 export default function MobileSidebar({ activeSection, onNavigate }) {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
-  const handleNav = (id) => {
-    onNavigate(id);
+  const handleNav = (item) => {
+    if (item.route) {
+      navigate(item.route);
+    } else {
+      onNavigate(item.id);
+    }
     setOpen(false);
   };
 
@@ -66,7 +73,7 @@ export default function MobileSidebar({ activeSection, onNavigate }) {
                   return (
                     <button
                       key={item.id}
-                      onClick={() => handleNav(item.id)}
+                      onClick={() => handleNav(item)}
                       className={`w-full flex items-center gap-2.5 px-3 py-2 rounded text-xs font-mono transition-colors ${
                         isActive
                           ? 'bg-primary/10 text-primary text-glow'

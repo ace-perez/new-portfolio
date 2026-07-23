@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { 
   Terminal, Server, Shield, FolderOpen, 
-  FileText, Mail, ChevronRight, Cpu, PanelLeftClose, PanelLeftOpen, Gamepad2
+  FileText, Mail, ChevronRight, Cpu, PanelLeftClose, PanelLeftOpen, Gamepad2, BookOpen
 } from 'lucide-react';
 
 const navItems = [
@@ -14,9 +15,11 @@ const navItems = [
   { id: 'certifications', label: 'certs/', icon: Shield },
   { id: 'games', label: 'games/', icon: Gamepad2 },
   { id: 'contact', label: 'contact/', icon: Mail },
+  { id: 'blog', label: 'blog/', icon: BookOpen, route: '/blog' },
 ];
 
 export default function Sidebar({ activeSection, onNavigate, onCollapse }) {
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
 
   const toggle = () => {
@@ -84,7 +87,7 @@ export default function Sidebar({ activeSection, onNavigate, onCollapse }) {
           return (
             <motion.button
               key={item.id}
-              onClick={() => onNavigate(item.id)}
+              onClick={() => item.route ? navigate(item.route) : onNavigate(item.id)}
               whileHover={{ x: collapsed ? 0 : 4 }}
               title={collapsed ? item.label : undefined}
               className={`w-full flex items-center gap-2.5 px-2 py-2 rounded text-xs font-mono transition-colors ${
