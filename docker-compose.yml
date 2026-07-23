@@ -12,7 +12,29 @@ services:
     volumes:
       - nginx_secrets:/etc/letsencrypt
       - nginx_certbot_www:/var/www/certbot
+    depends_on:
+      - api
+    networks:
+      - portfolio_net
+
+  api:
+    build: ./api
+    container_name: portfolio-api
+    restart: always
+    env_file:
+      - ./api/.env
+    volumes:
+      - blog_data:/app/data
+    expose:
+      - "3001"
+    networks:
+      - portfolio_net
+
+networks:
+  portfolio_net:
+    driver: bridge
 
 volumes:
   nginx_secrets:
   nginx_certbot_www:
+  blog_data:
