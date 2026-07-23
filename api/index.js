@@ -20,13 +20,14 @@ const PORT = process.env.PORT || 3001;
 // In production nginx proxies /api/ to this service, so CORS isn't needed
 // for same-origin requests. This permissive config is for local dev only.
 const allowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(',')
+  ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim())
   : ['http://localhost:5173', 'http://localhost:3000'];
 
 app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (curl, Postman) and whitelisted origins
     if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+    console.error(`[api] CORS blocked origin: "${origin}"`);
     callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
