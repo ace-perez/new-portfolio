@@ -1,0 +1,6 @@
+integrations:
+  - name: nri-nginx
+    config:
+      status_url: http://localhost:80/nginx_status
+      status_module: ngx_http_stub_status_module
+      remote_monitoring: true

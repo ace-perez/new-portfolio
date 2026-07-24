@@ -42,6 +42,7 @@ services:
     volumes:
       - /:/host:ro
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./newrelic-integrations:/etc/newrelic-infra/integrations.d
     environment:
       NRIA_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
       NRIA_DISPLAY_NAME: "ace-perez-portfolio-ec2"
