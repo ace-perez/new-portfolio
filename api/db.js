@@ -8,6 +8,11 @@ const db = new Database(DB_PATH);
 // Enable WAL mode for better concurrent read performance
 db.pragma('journal_mode = WAL');
 db.pragma('foreign_keys = ON');
+// Cap SQLite's in-memory page cache (default is -2000 = 2MB pages, can grow large)
+// Negative value = KiB; -4096 = 4 MB hard cap on page cache
+db.pragma('cache_size = -4096');
+// Disable memory-mapped I/O to keep the process footprint predictable
+db.pragma('mmap_size = 0');
 
 // ── Schema ────────────────────────────────────────────────────────────────────
 db.exec(`
