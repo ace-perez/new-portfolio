@@ -152,11 +152,8 @@ info "Systemd service '${SERVICE_NAME}' enabled (auto-starts on reboot)."
 # ── First deploy ──────────────────────────────────────────────────────────────
 section "Deploying stack"
 cd "$APP_DIR"
-# Apply docker group without requiring re-login
-newgrp docker <<'DOCKERCMD'
-docker compose build --no-cache
-docker compose up -d
-DOCKERCMD
+sudo docker compose build --no-cache
+sudo docker compose up -d
 
 echo ""
 info "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
