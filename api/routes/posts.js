@@ -4,6 +4,25 @@ const { requireAuth } = require('../middleware/auth');
 
 const router = express.Router();
 
+// ── Prepared statements (compiled once at startup) ────────────────────────────
+
+const stmtGetPublished    = db.prepare(`SELECT * FROM blog_posts WHERE published = 1 ORDER BY created_at DESC`);
+const stmtGetBySlug       = db.prepare(`SELECT * FROM blog_posts WHERE slug = ? AND published = 1`);
+const stmtGetAll          = db.prepare(`SELECT * FROM blog_posts ORDER BY created_at DESC`);
+const stmtCheckSlug       = db.prepare(`SELECT id FROM blog_posts WHERE slug = ?`);
+const stmtGetById         = db.prepare(`SELECT * FROM blog_posts WHERE id = ?`);
+const stmtGetBySlugAdmin  = db.prepare(`SELECT * FROM blog_posts WHERE slug = ?`);
+const stmtInsert          = db.prepare(`
+  INSERT INTO blog_posts (slug, title, excerpt, content, tags, published, read_time, created_at, updated_at)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+`);
+const stmtUpdate          = db.prepare(`
+  UPDATE blog_posts
+  SET title = ?, excerpt = ?, content = ?, tags = ?, published = ?, read_time = ?, updated_at = ?
+  WHERE slug = ?
+`);
+const stmtDelete          = db.prepare(`DELETE FROM blog_posts WHERE slug = ?`);
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function deserializePost(row) {
@@ -30,9 +49,7 @@ function slugify(title) {
  * Returns all published posts, newest first.
  */
 router.get('/', (req, res) => {
-  const rows = db
-    .prepare(`SELECT * FROM blog_posts WHERE published = 1 ORDER BY created_at DESC`)
-    .all();
+  const rows = stmtGetPublished.all();
   res.json(rows.map(deserializePost));
 });
 
@@ -41,10 +58,7 @@ router.get('/', (req, res) => {
  * Returns a single published post by slug.
  */
 router.get('/:slug', (req, res) => {
-  const row = db
-    .prepare(`SELECT * FROM blog_posts WHERE slug = ? AND published = 1`)
-    .get(req.params.slug);
-
+  const row = stmtGetBySlug.get(req.params.slug);
   if (!row) return res.status(404).json({ error: 'Post not found.' });
   res.json(deserializePost(row));
 });
@@ -56,9 +70,7 @@ router.get('/:slug', (req, res) => {
  * Returns ALL posts (published + drafts), newest first. Admin only.
  */
 router.get('/admin/all', requireAuth, (req, res) => {
-  const rows = db
-    .prepare(`SELECT * FROM blog_posts ORDER BY created_at DESC`)
-    .all();
+  const rows = stmtGetAll.all();
   res.json(rows.map(deserializePost));
 });
 
@@ -75,18 +87,15 @@ router.post('/', requireAuth, (req, res) => {
   let slug = slugify(title);
 
   // Ensure slug uniqueness
-  const existing = db.prepare(`SELECT id FROM blog_posts WHERE slug = ?`).get(slug);
+  const existing = stmtCheckSlug.get(slug);
   if (existing) {
     slug = `${slug}-${Date.now()}`;
   }
 
   const now = new Date().toISOString();
-  const result = db.prepare(`
-    INSERT INTO blog_posts (slug, title, excerpt, content, tags, published, read_time, created_at, updated_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(slug, title, excerpt, content, JSON.stringify(tags), published ? 1 : 0, read_time, now, now);
+  const result = stmtInsert.run(slug, title, excerpt, content, JSON.stringify(tags), published ? 1 : 0, read_time, now, now);
 
-  const post = db.prepare(`SELECT * FROM blog_posts WHERE id = ?`).get(result.lastInsertRowid);
+  const post = stmtGetById.get(result.lastInsertRowid);
   res.status(201).json(deserializePost(post));
 });
 
@@ -96,7 +105,7 @@ router.post('/', requireAuth, (req, res) => {
  * Body: any subset of { title, excerpt, content, tags[], published, read_time }
  */
 router.put('/:slug', requireAuth, (req, res) => {
-  const current = db.prepare(`SELECT * FROM blog_posts WHERE slug = ?`).get(req.params.slug);
+  const current = stmtGetBySlugAdmin.get(req.params.slug);
   if (!current) return res.status(404).json({ error: 'Post not found.' });
 
   const {
@@ -110,13 +119,9 @@ router.put('/:slug', requireAuth, (req, res) => {
 
   const now = new Date().toISOString();
 
-  db.prepare(`
-    UPDATE blog_posts
-    SET title = ?, excerpt = ?, content = ?, tags = ?, published = ?, read_time = ?, updated_at = ?
-    WHERE slug = ?
-  `).run(title, excerpt, content, JSON.stringify(tags), published ? 1 : 0, read_time, now, req.params.slug);
+  stmtUpdate.run(title, excerpt, content, JSON.stringify(tags), published ? 1 : 0, read_time, now, req.params.slug);
 
-  const updated = db.prepare(`SELECT * FROM blog_posts WHERE slug = ?`).get(req.params.slug);
+  const updated = stmtGetBySlugAdmin.get(req.params.slug);
   res.json(deserializePost(updated));
 });
 
@@ -125,7 +130,7 @@ router.put('/:slug', requireAuth, (req, res) => {
  * Permanently delete a post. Admin only.
  */
 router.delete('/:slug', requireAuth, (req, res) => {
-  const result = db.prepare(`DELETE FROM blog_posts WHERE slug = ?`).run(req.params.slug);
+  const result = stmtDelete.run(req.params.slug);
   if (result.changes === 0) return res.status(404).json({ error: 'Post not found.' });
   res.json({ success: true, slug: req.params.slug });
 });
