@@ -40,7 +40,21 @@ section "2/8 · Docker + Docker Compose v2"
 sudo dnf install -y docker --quiet
 sudo systemctl enable --now docker
 sudo usermod -aG docker "$USER"
-info "Docker installed and running."
+
+# Docker Compose v2 + buildx plugins (not in AL2023 repos — install binaries from GitHub)
+sudo mkdir -p /usr/local/lib/docker/cli-plugins
+
+sudo curl -SL "https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64" \
+  -o /usr/local/lib/docker/cli-plugins/docker-compose
+
+# buildx filename contains the version so we must resolve it dynamically
+BUILDX_VERSION=$(curl -s https://api.github.com/repos/docker/buildx/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
+sudo curl -SL "https://github.com/docker/buildx/releases/download/${BUILDX_VERSION}/buildx-${BUILDX_VERSION}.linux-amd64" \
+  -o /usr/local/lib/docker/cli-plugins/docker-buildx
+
+sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose \
+               /usr/local/lib/docker/cli-plugins/docker-buildx
+info "Docker Compose $(docker compose version --short) + buildx $(docker buildx version) installed."
 
 # ── 3. Swap file (1 GB) ───────────────────────────────────────────────────────
 section "3/8 · Swap file"
