@@ -1,0 +1,5 @@
+logs:
+  - name: docker_containers
+    file: /var/lib/docker/containers/*/*.log
+  - name: amazon_linux_messages
+    file: /var/log/messages

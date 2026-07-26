@@ -2,5 +2,6 @@ integrations:
   - name: nri-docker
     env:
       USE_DOCKER_API: true
+    config:
+      force_docker_api: true
     interval: 20s
- 
