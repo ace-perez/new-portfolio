@@ -1,7 +1,5 @@
 integrations:
   - name: nri-docker
-    config:
-      # Amazon Linux 2023 uses cgroup v2; force Docker API metric collection
-      # otherwise nri-docker fails to parse container filesystem stats
-      force_docker_api: true
-      interval: 20s
+    env:
+      USE_DOCKER_API: true
+    interval: 20s
