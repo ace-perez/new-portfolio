@@ -65,13 +65,14 @@ services:
     environment:
       NRIA_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
       NRIA_DISPLAY_NAME: "ace-perez-portfolio-ec2"
+      NRIA_OVERRIDE_HOSTNAME: "ace-perez-portfolio-ec2"
+      NRIA_DNS_HOSTNAME_RESOLUTION: "false"
       # Required when running inside Docker with /:/host:ro mounted
       NRIA_OVERRIDE_HOST_ROOT: "/host"
       # Explicitly enable host process telemetry (disabled by default in agent)
       NRIA_ENABLE_PROCESS_METRICS: "true"
-      # Increase agent log verbosity to diagnose nri-docker execution
-      NRIA_LOG_LEVEL: "debug"
-      NRIA_VERBOSE: "1"
+      # Agent log level
+      NRIA_LOG_LEVEL: "info"
       # Scrape every 20s (60s can cause empty/broken chart rendering in NR UI)
       NRIA_METRICS_INTERVAL: "20"
     mem_limit: 256m
