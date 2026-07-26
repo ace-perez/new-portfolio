@@ -20,9 +20,16 @@ const PORT = process.env.PORT || 3001;
 
 // In production nginx proxies /api/ to this service, so CORS isn't needed
 // for same-origin requests. This permissive config is for local dev only.
-const allowedOrigins = process.env.ALLOWED_ORIGINS
+const defaultOrigins = [
+  'https://ace-perez-portfolio.dev',
+  'https://www.ace-perez-portfolio.dev',
+  'http://localhost:5173',
+  'http://localhost:3000'
+];
+const envOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim())
-  : ['http://localhost:5173', 'http://localhost:3000'];
+  : [];
+const allowedOrigins = [...new Set([...defaultOrigins, ...envOrigins])];
 
 app.use(cors({
   origin: (origin, callback) => {
