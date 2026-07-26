@@ -17,3 +17,6 @@ COPY --from=build /app/dist /usr/share/nginx/html
 
 # Copy nginx site config into user_conf.d (nginx-certbot convention)
 COPY nginx_site.conf /etc/nginx/user_conf.d/portfolio.conf
+
+# Copy monitoring status config into conf.d (so Certbot ignores 'localhost')
+COPY nginx_status.conf /etc/nginx/conf.d/status.conf
