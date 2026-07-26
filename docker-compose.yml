@@ -48,11 +48,12 @@ services:
       - SYS_PTRACE
     network_mode: host
     pid: host
-    cgroupns: host
     privileged: true
     volumes:
       - /:/host:ro
       - /var/run/docker.sock:/var/run/docker.sock
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /dev/disk:/dev/disk:ro
       - ./newrelic-integrations:/etc/newrelic-infra/integrations.d
     environment:
       NRIA_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
