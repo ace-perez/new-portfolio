@@ -48,6 +48,7 @@ services:
       - SYS_PTRACE
     network_mode: host
     pid: host
+    cgroupns: host
     privileged: true
     volumes:
       - /:/host:ro
