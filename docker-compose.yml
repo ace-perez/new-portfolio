@@ -41,7 +41,7 @@ services:
     cpus: "1.0"
 
   newrelic-infra:
-    image: newrelic/infrastructure:latest
+    image: newrelic/infrastructure-bundle:latest
     container_name: newrelic-infra
     restart: unless-stopped
     cap_add:
