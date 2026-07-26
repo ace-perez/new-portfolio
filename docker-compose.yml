@@ -56,8 +56,11 @@ services:
     privileged: true
     volumes:
       - /:/host:ro
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
+      - /var/run/docker.sock:/var/run/docker.sock
       - /dev/disk:/dev/disk:ro
       - /var/lib/docker:/var/lib/docker:ro
       - ./newrelic-integrations:/etc/newrelic-infra/integrations.d
