@@ -60,6 +60,7 @@ services:
       - /sys:/host/sys:ro
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
+      - /sys/fs/cgroup/system.slice:/host/sys/fs:ro
       - /var/run/docker.sock:/var/run/docker.sock
       - /dev/disk:/dev/disk:ro
       - /var/lib/docker:/var/lib/docker:ro
