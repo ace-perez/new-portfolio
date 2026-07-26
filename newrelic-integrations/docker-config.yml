@@ -3,3 +3,51 @@ integrations:
     env:
       USE_DOCKER_API: true
     interval: 20s
+ 
+debug
+00:13:04.953
+Preparing bundle
+ 
+debug
+00:13:04.953
+bundling additional bundle
+ 
+debug
+00:13:04.953
+recipes in list 1
+ 
+debug
+00:13:04.953
+recipe event
+ 
+debug
+00:13:05.000
+completed
+ 
+debug
+00:13:05.268
+Additional Targeted bundle recipes:{ADDITIONALTARGETED []}
+ 
+debug
+00:13:05.268
+final installation statuses updated
+ 
+debug
+00:13:06.244
+We encountered an issue during the installation: one or more selected recipes could not be installed.
+ 
+00:13:34.881
+172.68.213.82 - - [26/Jul/2026:00:13:34 +0000] "GET / HTTP/1.1" 301 169 "-" "python-requests/2.34.2" "185.242.177.31"
+ 
+00:13:35.186
+172.68.213.83 - - [26/Jul/2026:00:13:35 +0000] "GET / HTTP/1.1" 200 991 "-" "python-requests/2.34.2" "185.242.177.31"
+ 
+00:13:56.861
+172.68.213.82 - - [26/Jul/2026:00:13:56 +0000] "GET / HTTP/1.1" 301 169 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0" "185.242.177.61"
+ 
+00:13:57.010
+172.68.213.83 - - [26/Jul/2026:00:13:57 +0000] "GET / HTTP/1.1" 200 991 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0" "185.242.177.66"
+ 
+00:13:57.271
+172.68.213.83 - - [26/Jul/2026:00:13:57 +0000] "GET / HTTP/1.1" 200 991 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0" "185.242.177.61"
+Query your data
