@@ -69,8 +69,9 @@ services:
       NRIA_OVERRIDE_HOST_ROOT: "/host"
       # Explicitly enable host process telemetry (disabled by default in agent)
       NRIA_ENABLE_PROCESS_METRICS: "true"
-      # Reduce agent log verbosity to save memory
-      NRIA_LOG_LEVEL: "warn"
+      # Increase agent log verbosity to diagnose nri-docker execution
+      NRIA_LOG_LEVEL: "debug"
+      NRIA_VERBOSE: "1"
       # Scrape every 20s (60s can cause empty/broken chart rendering in NR UI)
       NRIA_METRICS_INTERVAL: "20"
     mem_limit: 256m
