@@ -38,7 +38,7 @@ async function main() {
     `ADMIN_PASSWORD_HASH=${hash}`,
     `JWT_SECRET=${jwtSecret}`,
     `DB_PATH=/app/data/blog.db`,
-    `ALLOWED_ORIGINS=http://localhost:5173`,
+    `ALLOWED_ORIGINS=https://ace-perez-portfolio.dev,https://www.ace-perez-portfolio.dev,http://localhost:5173`,
   ].join('\n');
 
   const envPath = path.join(__dirname, '.env');
