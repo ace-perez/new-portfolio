@@ -41,19 +41,35 @@ sudo dnf install -y docker --quiet
 sudo systemctl enable --now docker
 sudo usermod -aG docker "$USER"
 
-# Docker Compose v2 + buildx plugins (not in AL2023 repos — install from GitHub)
+# Docker Compose v2 + buildx plugins (dynamically detect CPU architecture)
 sudo mkdir -p /usr/local/lib/docker/cli-plugins
 
-sudo curl -SL "https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64" \
+ARCH=$(uname -m)
+case "$ARCH" in
+  x86_64)
+    COMPOSE_ARCH="x86_64"
+    BUILDX_ARCH="amd64"
+    ;;
+  aarch64|arm64)
+    COMPOSE_ARCH="aarch64"
+    BUILDX_ARCH="arm64"
+    ;;
+  *)
+    warn "Unsupported architecture: $ARCH"
+    exit 1
+    ;;
+esac
+
+sudo curl -SL "https://github.com/docker/compose/releases/latest/download/docker-compose-linux-${COMPOSE_ARCH}" \
   -o /usr/local/lib/docker/cli-plugins/docker-compose
 
 BUILDX_VERSION=$(curl -s https://api.github.com/repos/docker/buildx/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
-sudo curl -SL "https://github.com/docker/buildx/releases/download/${BUILDX_VERSION}/buildx-${BUILDX_VERSION}.linux-amd64" \
+sudo curl -SL "https://github.com/docker/buildx/releases/download/${BUILDX_VERSION}/buildx-${BUILDX_VERSION}.linux-${BUILDX_ARCH}" \
   -o /usr/local/lib/docker/cli-plugins/docker-buildx
 
 sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose \
                /usr/local/lib/docker/cli-plugins/docker-buildx
-info "Docker Compose $(docker compose version --short) + buildx $(docker buildx version) installed."
+info "Docker Compose $(docker compose version --short) + buildx $(docker buildx version) installed for ${ARCH}."
 
 # ── 3. Swap file (1 GB) ───────────────────────────────────────────────────────
 section "3/8 · Swap file"
