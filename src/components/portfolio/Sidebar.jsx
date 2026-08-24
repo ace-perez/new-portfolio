@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { 
   Terminal, Server, Shield, FolderOpen, 
-  FileText, Mail, ChevronRight, Cpu, PanelLeftClose, PanelLeftOpen, Gamepad2, BookOpen
+  FileText, Mail, ChevronRight, Cpu, PanelLeftClose, PanelLeftOpen, Gamepad2
 } from 'lucide-react';
 
 const navItems = [
@@ -15,7 +15,6 @@ const navItems = [
   { id: 'certifications', label: 'certs/', icon: Shield },
   { id: 'games', label: 'games/', icon: Gamepad2 },
   { id: 'contact', label: 'contact/', icon: Mail },
-  { id: 'blog', label: 'blog/', icon: BookOpen, route: '/blog' },
 ];
 
 export default function Sidebar({ activeSection, onNavigate, onCollapse }) {
