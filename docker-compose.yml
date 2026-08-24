@@ -9,74 +9,14 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "127.0.0.1:8080:8080"
     volumes:
       - nginx_secrets:/etc/letsencrypt
       - nginx_certbot_www:/var/www/certbot
-    depends_on:
-      - api
     networks:
       - portfolio_net
     mem_limit: 256m
     mem_reservation: 128m
     cpus: "0.5"
-
-  api:
-    build: ./api
-    container_name: portfolio-api
-    restart: always
-    env_file:
-      - ./api/.env
-    environment:
-      # Cap V8 heap so Node self-limits before Docker's OOM killer fires
-      NODE_OPTIONS: "--max-old-space-size=384"
-      # New Relic Node APM variables
-      NEW_RELIC_NO_CONFIG_FILE: "true"
-      NEW_RELIC_APP_NAME: "Portfolio API"
-      NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
-      NEW_RELIC_DISTRIBUTED_TRACING_ENABLED: "true"
-    volumes:
-      - blog_data:/app/data
-    expose:
-      - "3001"
-    networks:
-      - portfolio_net
-    mem_limit: 512m
-    mem_reservation: 256m
-    cpus: "1.0"
-
-  newrelic-infra:
-    image: newrelic/infrastructure-bundle:latest
-    container_name: newrelic-infra
-    restart: unless-stopped
-    cap_add:
-      - SYS_PTRACE
-    network_mode: host
-    pid: host
-    privileged: true
-    volumes:
-      - /:/host:ro
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /dev/disk:/dev/disk:ro
-      - /var/lib/docker:/var/lib/docker:ro
-      - ./newrelic-integrations:/etc/newrelic-infra/integrations.d
-      - ./newrelic-logging:/etc/newrelic-infra/logging.d
-    environment:
-      NRIA_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
-      NRIA_DISPLAY_NAME: "ace-perez-portfolio-ec2"
-      NRIA_OVERRIDE_HOSTNAME: "ace-perez-portfolio-ec2"
-      NRIA_DNS_HOSTNAME_RESOLUTION: "false"
-      # Required when running inside Docker with /:/host:ro mounted
-      NRIA_OVERRIDE_HOST_ROOT: "/host"
-      # Explicitly enable host process telemetry (disabled by default in agent)
-      NRIA_ENABLE_PROCESS_METRICS: "true"
-      # Agent log level
-      NRIA_LOG_LEVEL: "info"
-      # Scrape every 20s (60s can cause empty/broken chart rendering in NR UI)
-      NRIA_METRICS_INTERVAL: "20"
-    mem_limit: 256m
-    mem_reservation: 128m
 
 networks:
   portfolio_net:
@@ -85,4 +25,3 @@ networks:
 volumes:
   nginx_secrets:
   nginx_certbot_www:
-  blog_data:
