@@ -31,6 +31,13 @@ section() { echo -e "\n${GREEN}════════════════�
 
 # ── 1. System update ──────────────────────────────────────────────────────────
 section "1/8 · System update"
+
+# Inject public NAT64 DNS resolvers for IPv6-only outbound translation to IPv4-only CDNs
+if ! grep -q "2001:67c:2b0::4" /etc/resolv.conf 2>/dev/null; then
+  echo "nameserver 2001:67c:2b0::4" | sudo tee -a /etc/resolv.conf >/dev/null
+  echo "nameserver 2001:67c:2b0::6" | sudo tee -a /etc/resolv.conf >/dev/null
+fi
+
 sudo dnf update -y --quiet
 sudo dnf install -y git htop --quiet
 info "System updated."
