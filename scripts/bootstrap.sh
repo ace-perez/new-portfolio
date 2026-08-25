@@ -134,13 +134,13 @@ info "Systemd service '${SERVICE_NAME}' enabled (auto-starts on reboot)."
 section "8/8 · Deploying stack"
 cd "$APP_DIR"
 if docker compose version >/dev/null 2>&1; then
-  sudo docker compose build --no-cache
+  sudo docker compose build --progress=plain --no-cache
   sudo docker compose up -d
 elif [ -f /usr/local/bin/docker-compose ]; then
-  sudo /usr/local/bin/docker-compose build --no-cache
+  sudo /usr/local/bin/docker-compose build --progress=plain --no-cache
   sudo /usr/local/bin/docker-compose up -d
 else
-  sudo docker build --no-cache -t portfolio .
+  sudo docker build --progress=plain --no-cache -t portfolio .
 fi
 
 echo ""
