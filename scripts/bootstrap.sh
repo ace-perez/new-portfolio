@@ -45,38 +45,39 @@ fi
 # ── 2. Docker ─────────────────────────────────────────────────────────────────
 section "2/8 · Docker + Docker Compose v2"
 sudo dnf install -y docker --quiet
+# Try installing compose & buildx plugins via dnf (AWS repos support native IPv6)
+sudo dnf install -y docker-compose-plugin docker-buildx-plugin --quiet 2>/dev/null || true
+
 sudo systemctl enable --now docker
 sudo usermod -aG docker "$USER"
 
-# Docker Compose v2 + buildx plugins (dynamically detect CPU architecture)
-sudo mkdir -p /usr/local/lib/docker/cli-plugins
+# Only attempt GitHub download if docker compose is not yet working
+if ! docker compose version >/dev/null 2>&1; then
+  sudo mkdir -p /usr/local/lib/docker/cli-plugins
+  ARCH=$(uname -m)
+  case "$ARCH" in
+    x86_64)       COMPOSE_ARCH="x86_64"; BUILDX_ARCH="amd64" ;;
+    aarch64|arm64) COMPOSE_ARCH="aarch64"; BUILDX_ARCH="arm64" ;;
+    *) warn "Unsupported architecture: $ARCH"; exit 1 ;;
+  esac
 
-ARCH=$(uname -m)
-case "$ARCH" in
-  x86_64)
-    COMPOSE_ARCH="x86_64"
-    BUILDX_ARCH="amd64"
-    ;;
-  aarch64|arm64)
-    COMPOSE_ARCH="aarch64"
-    BUILDX_ARCH="arm64"
-    ;;
-  *)
-    warn "Unsupported architecture: $ARCH"
-    exit 1
-    ;;
-esac
+  # Use dual-stack mirror fallback if direct github connection times out
+  MIRROR="https://ghproxy.net/"
+  if curl -s --connect-timeout 3 https://github.com > /dev/null 2>&1; then
+    MIRROR=""
+  fi
 
-sudo curl -SL "https://github.com/docker/compose/releases/latest/download/docker-compose-linux-${COMPOSE_ARCH}" \
-  -o /usr/local/lib/docker/cli-plugins/docker-compose
+  sudo curl -SL "${MIRROR}https://github.com/docker/compose/releases/latest/download/docker-compose-linux-${COMPOSE_ARCH}" \
+    -o /usr/local/lib/docker/cli-plugins/docker-compose || true
 
-BUILDX_VERSION=$(curl -s https://api.github.com/repos/docker/buildx/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
-sudo curl -SL "https://github.com/docker/buildx/releases/download/${BUILDX_VERSION}/buildx-${BUILDX_VERSION}.linux-${BUILDX_ARCH}" \
-  -o /usr/local/lib/docker/cli-plugins/docker-buildx
+  BUILDX_VERSION=$(curl -s --connect-timeout 3 "${MIRROR}https://api.github.com/repos/docker/buildx/releases/latest" | grep '"tag_name"' | cut -d'"' -f4 || echo "v0.12.0")
+  sudo curl -SL "${MIRROR}https://github.com/docker/buildx/releases/download/${BUILDX_VERSION}/buildx-${BUILDX_VERSION}.linux-${BUILDX_ARCH}" \
+    -o /usr/local/lib/docker/cli-plugins/docker-buildx || true
 
-sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose \
-               /usr/local/lib/docker/cli-plugins/docker-buildx
-info "Docker Compose $(docker compose version --short) + buildx $(docker buildx version) installed for ${ARCH}."
+  sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose \
+                 /usr/local/lib/docker/cli-plugins/docker-buildx || true
+fi
+info "Docker ready."
 
 # ── 3. Swap file (1 GB) ───────────────────────────────────────────────────────
 section "3/8 · Swap file"
@@ -117,9 +118,9 @@ info "Ghost services cleaned up."
 section "6/8 · Clone repo"
 if [ -d "$APP_DIR" ]; then
   warn "Directory $APP_DIR already exists — pulling latest instead."
-  git -C "$APP_DIR" pull
+  git -C "$APP_DIR" pull || git -C "$APP_DIR" pull https://ghproxy.net/https://github.com/ace-perez/new-portfolio.git || true
 else
-  git clone "$REPO_URL" "$APP_DIR"
+  git clone "$REPO_URL" "$APP_DIR" || git clone "https://ghproxy.net/${REPO_URL}" "$APP_DIR"
   info "Repo cloned to $APP_DIR"
 fi
 
