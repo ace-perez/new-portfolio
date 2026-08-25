@@ -35,48 +35,11 @@ sudo dnf update -y --quiet
 sudo dnf install -y git htop --quiet
 info "System updated."
 
-# Check IPv6 connectivity to IPv4-only services (like GitHub) and enable DNS64 if needed
-if ! curl -s --connect-timeout 4 https://github.com > /dev/null 2>&1; then
-  warn "github.com is IPv4-only and unreachable directly via IPv6. Adding Google DNS64 fallback..."
-  echo "nameserver 2001:4860:4860::6464" | sudo tee -a /etc/resolv.conf > /dev/null
-  echo "nameserver 2001:4860:4860::6400" | sudo tee -a /etc/resolv.conf > /dev/null
-fi
-
 # ── 2. Docker ─────────────────────────────────────────────────────────────────
 section "2/8 · Docker + Docker Compose v2"
-sudo dnf install -y docker --quiet
-# Try installing compose & buildx plugins via dnf (AWS repos support native IPv6)
-sudo dnf install -y docker-compose-plugin docker-buildx-plugin --quiet 2>/dev/null || true
-
+sudo dnf install -y docker docker-compose-plugin docker-buildx-plugin --quiet || sudo dnf install -y docker --quiet
 sudo systemctl enable --now docker
 sudo usermod -aG docker "$USER"
-
-# Only attempt GitHub download if docker compose is not yet working
-if ! docker compose version >/dev/null 2>&1; then
-  sudo mkdir -p /usr/local/lib/docker/cli-plugins
-  ARCH=$(uname -m)
-  case "$ARCH" in
-    x86_64)       COMPOSE_ARCH="x86_64"; BUILDX_ARCH="amd64" ;;
-    aarch64|arm64) COMPOSE_ARCH="aarch64"; BUILDX_ARCH="arm64" ;;
-    *) warn "Unsupported architecture: $ARCH"; exit 1 ;;
-  esac
-
-  # Use dual-stack mirror fallback if direct github connection times out
-  MIRROR="https://ghproxy.net/"
-  if curl -s --connect-timeout 3 https://github.com > /dev/null 2>&1; then
-    MIRROR=""
-  fi
-
-  sudo curl -SL "${MIRROR}https://github.com/docker/compose/releases/latest/download/docker-compose-linux-${COMPOSE_ARCH}" \
-    -o /usr/local/lib/docker/cli-plugins/docker-compose || true
-
-  BUILDX_VERSION=$(curl -s --connect-timeout 3 "${MIRROR}https://api.github.com/repos/docker/buildx/releases/latest" | grep '"tag_name"' | cut -d'"' -f4 || echo "v0.12.0")
-  sudo curl -SL "${MIRROR}https://github.com/docker/buildx/releases/download/${BUILDX_VERSION}/buildx-${BUILDX_VERSION}.linux-${BUILDX_ARCH}" \
-    -o /usr/local/lib/docker/cli-plugins/docker-buildx || true
-
-  sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose \
-                 /usr/local/lib/docker/cli-plugins/docker-buildx || true
-fi
 info "Docker ready."
 
 # ── 3. Swap file (1 GB) ───────────────────────────────────────────────────────
