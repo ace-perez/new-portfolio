@@ -3,7 +3,7 @@ FROM node:20-alpine AS build
 ENV NODE_ENV=development
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN --network=host npm config set maxsockets 5 && \
+RUN npm config set maxsockets 5 && \
     npm config set fetch-retries 10 && \
     npm config set fetch-retry-maxtimeout 120000 && \
     npm ci --loglevel info
