@@ -37,9 +37,25 @@ info "System updated."
 
 # ── 2. Docker ─────────────────────────────────────────────────────────────────
 section "2/8 · Docker + Docker Compose v2"
-sudo dnf install -y docker docker-compose docker-buildx --quiet 2>/dev/null || sudo dnf install -y docker --quiet 2>/dev/null
+sudo dnf install -y docker --quiet
 sudo systemctl enable --now docker
 sudo usermod -aG docker "$USER"
+
+# Install Docker Compose v2 plugin via dual-stack mirror
+sudo mkdir -p /usr/local/lib/docker/cli-plugins /usr/local/bin
+ARCH=$(uname -m)
+case "$ARCH" in
+  x86_64)        COMPOSE_ARCH="x86_64" ;;
+  aarch64|arm64) COMPOSE_ARCH="aarch64" ;;
+  *)             COMPOSE_ARCH="x86_64" ;;
+esac
+
+sudo curl -SL "https://ghproxy.net/https://github.com/docker/compose/releases/download/v2.29.1/docker-compose-linux-${COMPOSE_ARCH}" \
+  -o /usr/local/lib/docker/cli-plugins/docker-compose --quiet || true
+
+sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose 2>/dev/null || true
+sudo cp /usr/local/lib/docker/cli-plugins/docker-compose /usr/local/bin/docker-compose 2>/dev/null || true
+
 info "Docker ready."
 
 # ── 3. Swap file (1 GB) ───────────────────────────────────────────────────────
@@ -117,8 +133,15 @@ info "Systemd service '${SERVICE_NAME}' enabled (auto-starts on reboot)."
 # ── 8. First deploy ───────────────────────────────────────────────────────────
 section "8/8 · Deploying stack"
 cd "$APP_DIR"
-sudo docker compose build --no-cache
-sudo docker compose up -d
+if docker compose version >/dev/null 2>&1; then
+  sudo docker compose build --no-cache
+  sudo docker compose up -d
+elif [ -f /usr/local/bin/docker-compose ]; then
+  sudo /usr/local/bin/docker-compose build --no-cache
+  sudo /usr/local/bin/docker-compose up -d
+else
+  sudo docker build --no-cache -t portfolio .
+fi
 
 echo ""
 info "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
