@@ -37,7 +37,7 @@ info "System updated."
 
 # ── 2. Docker ─────────────────────────────────────────────────────────────────
 section "2/8 · Docker + Docker Compose v2"
-sudo dnf install -y docker docker-compose docker-buildx --quiet 2>/dev/null || sudo dnf install -y docker --quiet
+sudo dnf install -y docker docker-compose docker-buildx --quiet 2>/dev/null || sudo dnf install -y docker --quiet 2>/dev/null
 sudo systemctl enable --now docker
 sudo usermod -aG docker "$USER"
 info "Docker ready."
