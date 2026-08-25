@@ -35,6 +35,13 @@ sudo dnf update -y --quiet
 sudo dnf install -y git htop --quiet
 info "System updated."
 
+# Check IPv6 connectivity to IPv4-only services (like GitHub) and enable DNS64 if needed
+if ! curl -s --connect-timeout 4 https://github.com > /dev/null 2>&1; then
+  warn "github.com is IPv4-only and unreachable directly via IPv6. Adding Google DNS64 fallback..."
+  echo "nameserver 2001:4860:4860::6464" | sudo tee -a /etc/resolv.conf > /dev/null
+  echo "nameserver 2001:4860:4860::6400" | sudo tee -a /etc/resolv.conf > /dev/null
+fi
+
 # ── 2. Docker ─────────────────────────────────────────────────────────────────
 section "2/8 · Docker + Docker Compose v2"
 sudo dnf install -y docker --quiet
