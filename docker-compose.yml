@@ -1,10 +1,6 @@
 services:
   portfolio:
-    build:
-      context: .
-      dns:
-        - 2001:67c:2b0::4
-        - 2001:67c:2b0::6
+    build: .
     container_name: new-portfolio
     restart: always
     environment:
